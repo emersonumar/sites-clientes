@@ -216,10 +216,17 @@ let filtro = 'todos', filtroTipo = 'todos';
 
 // modelos de mensagem — editáveis na tela e salvos no navegador de quem liga
 const PADRAO = {"comSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google — uma das mais bem avaliadas de Campo Grande. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um pra vocês e já deixei no ar:\n{LINK}\n\nDá uma olhada, sem compromisso.","semSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google — uma das mais bem avaliadas de Campo Grande. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um modelo pra mostrar como ficaria. Posso te mandar o link?","cobranca":"Oi! Passando só pra saber se você chegou a ver o site da {NOME} que mandei :)"};
+const VERSAO = "cf6bcf0b";
 const CHAVE_MSG = 'msg-' + document.title;
 const campos = { comSite: 'mComSite', semSite: 'mSemSite', cobranca: 'mCobranca', eu: 'euNome' };
 let MSG = Object.assign({ eu: '' }, PADRAO);
-try { MSG = Object.assign(MSG, JSON.parse(localStorage.getItem(CHAVE_MSG) || '{}')); } catch {}
+try {
+  const salvo = JSON.parse(localStorage.getItem(CHAVE_MSG) || '{}');
+  // Texto novo publicado por aqui substitui o que ficou guardado no navegador —
+  // senão quem já abriu o painel uma vez nunca recebe as correções. O nome fica.
+  MSG = salvo.v === VERSAO ? Object.assign(MSG, salvo) : Object.assign(MSG, { eu: salvo.eu || '' });
+} catch {}
+MSG.v = VERSAO;
 for (const k in campos) document.getElementById(campos[k]).value = MSG[k] || '';
 for (const k in campos) {
   document.getElementById(campos[k]).addEventListener('input', e => {
