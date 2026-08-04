@@ -215,8 +215,8 @@ const busca = document.getElementById('busca');
 let filtro = 'todos', filtroTipo = 'todos';
 
 // modelos de mensagem — editáveis na tela e salvos no navegador de quem liga
-const PADRAO = {"comSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google — uma das mais bem avaliadas de Campo Grande. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um pra vocês e já deixei no ar:\n{LINK}\n\nDá uma olhada, sem compromisso.","semSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google — uma das mais bem avaliadas de Campo Grande. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um modelo pra mostrar como ficaria. Posso te mandar o link?","cobranca":"Oi! Passando só pra saber se você chegou a ver o site da {NOME} que mandei :)"};
-const VERSAO = "cf6bcf0b";
+const PADRAO = {"comSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google{ELOGIO}. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um pra vocês e já deixei no ar:\n{LINK}\n\nDá uma olhada, sem compromisso.","semSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google{ELOGIO}. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um modelo pra mostrar como ficaria. Posso te mandar o link?","cobranca":"Oi! Passando só pra saber se você chegou a ver o site da {NOME} que mandei :)"};
+const VERSAO = "91caedca";
 const CHAVE_MSG = 'msg-' + document.title;
 const campos = { comSite: 'mComSite', semSite: 'mSemSite', cobranca: 'mCobranca', eu: 'euNome' };
 let MSG = Object.assign({ eu: '' }, PADRAO);
@@ -236,7 +236,12 @@ for (const k in campos) {
 }
 
 function preencher(texto, l) {
+  // Só elogia quem realmente é bem avaliado. Dizer "uma das mais bem avaliadas"
+  // pra quem tem nota 2,9 destrói a credibilidade na primeira frase.
+  const num = parseFloat(String(l.nota).replace(',', '.')) || 0;
+  const elogio = num >= 4.5 ? ' — uma das mais bem avaliadas de Campo Grande' : '';
   return texto
+    .replaceAll('{ELOGIO}', elogio)
     .replaceAll('{EU}', MSG.eu || 'Weslley')
     .replaceAll('{NOME}', l.nome)
     .replaceAll('{AVAL}', l.aval.toLocaleString('pt-BR'))
