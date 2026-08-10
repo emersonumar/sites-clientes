@@ -215,33 +215,45 @@ p { margin: 0; }
 .card .saiba svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
 .card:hover .saiba svg { transform: translateX(5px); }
 
-/* ---------- tecnologia / equipamentos ---------- */
-.tec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-.tec {
-  background: var(--ground); border-radius: var(--r-card); padding: 32px 30px;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 18%, transparent);
-  display: flex; flex-direction: column; gap: 12px;
-}
-.tec .ico { color: var(--brand); }
-.tec .ico svg { width: 30px; height: 30px; }
-.tec h3 { font-size: 1.22rem; }
-.tec .oque { color: var(--ink-70); font-size: .96rem; }
-.tec .pra-voce {
-  margin-top: auto; padding-top: 14px; font-size: .92rem; color: var(--brand-escuro);
-  border-top: 1px solid color-mix(in srgb, var(--brand) 18%, transparent);
-}
-.tec .pra-voce strong { font-weight: 600; }
+/* ---------- tecnologia / equipamentos ----------
+   É a seção que mais vende em clínica com equipamento bom, então ela é a âncora
+   escura da página: fundo profundo, vídeo grande e a lista ao lado. */
+.secao-tec { background: var(--escuro); color: color-mix(in srgb, var(--ground) 88%, transparent); }
+.secao-tec h2, .secao-tec h3 { color: var(--ground); }
+.secao-tec .eyebrow { color: color-mix(in srgb, var(--brand) 70%, #fff); }
+.secao-tec .section-head p { color: color-mix(in srgb, var(--ground) 62%, transparent); }
 
-.video-wrap { margin-top: clamp(30px, 4vw, 48px); }
+.tec-layout { display: grid; grid-template-columns: 42fr 58fr; gap: clamp(32px, 5vw, 68px); align-items: start; }
+.tec-layout.sem-video { grid-template-columns: 1fr; }
+.tec-lista { display: grid; gap: 4px; }
+.tec {
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; align-items: start;
+  padding: 24px 0; border-bottom: 1px solid color-mix(in srgb, #fff 12%, transparent);
+}
+.tec:last-child { border-bottom: 0; }
+.tec .ico { grid-row: span 3; color: color-mix(in srgb, var(--brand) 72%, #fff); padding-top: 3px; }
+.tec .ico svg { width: 28px; height: 28px; }
+.tec h3 { font-size: 1.2rem; }
+.tec .oque { color: color-mix(in srgb, var(--ground) 62%, transparent); font-size: .95rem; margin-top: 6px; }
+.tec .pra-voce { font-size: .93rem; margin-top: 10px; color: color-mix(in srgb, var(--brand) 62%, #fff); }
+.tec .pra-voce strong { font-weight: 600; color: color-mix(in srgb, var(--brand) 78%, #fff); }
+.tec-foto { grid-column: 2; margin-top: 14px; border-radius: var(--r-img); width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+
+.video-wrap { position: sticky; top: 108px; }
 .video-wrap video, .video-wrap iframe {
-  width: 100%; display: block; border-radius: var(--r-card); background: var(--escuro);
-  box-shadow: 0 40px 80px -50px color-mix(in srgb, var(--ink) 55%, transparent);
+  width: 100%; display: block; border-radius: var(--r-card); background: #000;
+  box-shadow: 0 40px 90px -40px rgba(0,0,0,.75);
 }
 .video-wrap video { max-height: 78vh; object-fit: contain; }
 .video-wrap iframe { aspect-ratio: 16/9; border: 0; }
 /* embed do Instagram vem com cabeçalho e rodapé próprios: altura fixa, não proporção */
-.video-wrap.vertical { max-width: 420px; margin-left: auto; margin-right: auto; }
-.video-wrap.vertical iframe { aspect-ratio: auto; height: 720px; background: var(--ground); border-radius: var(--r-card); }
+.video-wrap.vertical iframe { aspect-ratio: auto; height: 700px; background: var(--ground); }
+.video-legenda { color: color-mix(in srgb, var(--ground) 55%, transparent); }
+
+@media (max-width: 900px) {
+  .tec-layout { grid-template-columns: 1fr; }
+  .video-wrap { position: static; max-width: 420px; margin: 0 auto 8px; }
+}
 .video-legenda { text-align: center; color: var(--ink-55); font-size: .88rem; margin-top: 14px; }
 
 /* ---------- diferenciais ---------- */
@@ -556,55 +568,58 @@ p { margin: 0; }
   </section>
 
 
-  <!-- tecnologia -->
-  <section id="tecnologia">
+  <!-- tecnologia (âncora escura da página) -->
+  <section id="tecnologia" class="secao-tec">
     <div class="container">
       <div class="section-head center reveal">
         <span class="eyebrow">Tecnologia</span>
         <h2>Como é a sua consulta aqui</h2>
         <p>Equipamento bom não é enfeite. É o que faz a consulta ser mais rápida, mais precisa e bem mais confortável pra você.</p>
       </div>
-      <div class="tec-grid">
-        <article class="tec reveal" style="--i:0">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z"/><path d="M18.5 16.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></svg></span>
-          <h3>Airflow — limpeza com jato</h3>
-          <p class="oque">Limpeza feita com jato de ar, água e pó fino, no lugar da raspagem tradicional com aquele barulho de aparelho.</p>
-          <p class="pra-voce"><strong>Na prática:</strong> sem o raspador, sem aquele barulho e sem a sensibilidade que a limpeza costuma deixar depois.</p>
-        </article>
-        <article class="tec reveal" style="--i:1">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 3.5h6v3H9z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <h3>Scanner intraoral</h3>
-          <p class="oque">Uma canetinha passa pela sua boca e monta o modelo dos seus dentes em 3D na tela, na hora.</p>
-          <p class="pra-voce"><strong>Na prática:</strong> acabou a massinha de moldagem e aquela ânsia de vômito. E você vê seus dentes na tela junto com o dentista.</p>
-        </article>
-        <article class="tec reveal" style="--i:2">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.2c0 4.6-3.2 8.6-7.5 10-4.3-1.4-7.5-5.4-7.5-10V6L12 3Z"/><path d="M9.2 12l2 2 3.6-3.7"/></svg></span>
-          <h3>Raio-X digital</h3>
-          <p class="oque">Imagem digital que aparece na tela em segundos, com dose de radiação bem menor que a do raio-X antigo.</p>
-          <p class="pra-voce"><strong>Na prática:</strong> você não espera revelação de filme e enxerga o problema na tela enquanto ele é explicado.</p>
-        </article>
-        <article class="tec reveal" style="--i:0">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-2.4 0-2.9 1-4.4 1S5 3.2 4 4.2C2.7 5.6 3 8.4 3.6 10.9c.5 2 .8 4.3 1.3 6.3.3 1.4.8 3.4 2 3.4 1.3 0 1.5-2.3 1.9-4.2.3-1.5.6-2.6 1.5-2.6s1.2 1.1 1.5 2.6c.4 1.9.6 4.2 1.9 4.2 1.2 0 1.7-2 2-3.4.5-2 .8-4.3 1.3-6.3.6-2.5.9-5.3-.4-6.7-1-1-1.9-.2-3.4-.2S14.4 3 12 3Z"/></svg></span>
-          <h3>Lentes em resina</h3>
-          <p class="oque">Reconstrução do formato e da cor do dente feita direto na consulta, camada por camada.</p>
-          <p class="pra-voce"><strong>Na prática:</strong> transformação do sorriso sem desgastar o dente e, na maioria dos casos, em menos sessões.</p>
-        </article>
-        <article class="tec reveal" style="--i:1">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><rect x="5" y="8.8" width="4.2" height="6.4" rx="1.3"/><rect x="14.8" y="8.8" width="4.2" height="6.4" rx="1.3"/></svg></span>
-          <h3>Aparelho invisível</h3>
-          <p class="oque">Alinhadores transparentes, feitos a partir do escaneamento em 3D dos seus dentes.</p>
-          <p class="pra-voce"><strong>Na prática:</strong> dá pra tirar pra comer e escovar, e quase ninguém percebe que você está usando.</p>
-        </article>
-        <article class="tec reveal" style="--i:2">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12c0 4.1-3.8 7.4-8.5 7.4-1 0-2-.2-2.9-.4L4 20.5l1.4-3.6A7 7 0 0 1 3.5 12C3.5 7.9 7.3 4.6 12 4.6s8.5 3.3 8.5 7.4Z"/></svg></span>
-          <h3>Plano na tela, antes de começar</h3>
-          <p class="oque">Com o escaneamento e o raio-X na mão, o plano de tratamento é mostrado e explicado antes de qualquer procedimento.</p>
-          <p class="pra-voce"><strong>Na prática:</strong> você entende o que vai ser feito e quanto custa antes de sentar na cadeira.</p>
-        </article>
-      </div>
+      <div class="tec-layout">
+
       <div class="video-wrap vertical reveal">
         <iframe src="https://www.instagram.com/reel/DZnFCUxgu0v/embed/" title="Tecnologia no consultório do Dr. Guilherme Maidana" loading="lazy" allowfullscreen></iframe>
         <p class="video-legenda">Veja no vídeo como funciona a tecnologia usada nas consultas.</p>
+      </div>
+        <div class="tec-lista">
+          <article class="tec reveal" style="--i:0">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z"/><path d="M18.5 16.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></svg></span>
+            <h3>Airflow — limpeza com jato</h3>
+            <p class="oque">Limpeza feita com jato de ar, água e pó fino, no lugar da raspagem tradicional com aquele barulho de aparelho.</p>
+            <p class="pra-voce"><strong>Na prática:</strong> sem o raspador, sem aquele barulho e sem a sensibilidade que a limpeza costuma deixar depois.</p>
+          </article>
+          <article class="tec reveal" style="--i:1">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 3.5h6v3H9z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <h3>Scanner intraoral</h3>
+            <p class="oque">Uma canetinha passa pela sua boca e monta o modelo dos seus dentes em 3D na tela, na hora.</p>
+            <p class="pra-voce"><strong>Na prática:</strong> acabou a massinha de moldagem e aquela ânsia de vômito. E você vê seus dentes na tela junto com o dentista.</p>
+          </article>
+          <article class="tec reveal" style="--i:2">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.2c0 4.6-3.2 8.6-7.5 10-4.3-1.4-7.5-5.4-7.5-10V6L12 3Z"/><path d="M9.2 12l2 2 3.6-3.7"/></svg></span>
+            <h3>Raio-X digital</h3>
+            <p class="oque">Imagem digital que aparece na tela em segundos, com dose de radiação bem menor que a do raio-X antigo.</p>
+            <p class="pra-voce"><strong>Na prática:</strong> você não espera revelação de filme e enxerga o problema na tela enquanto ele é explicado.</p>
+          </article>
+          <article class="tec reveal" style="--i:3">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-2.4 0-2.9 1-4.4 1S5 3.2 4 4.2C2.7 5.6 3 8.4 3.6 10.9c.5 2 .8 4.3 1.3 6.3.3 1.4.8 3.4 2 3.4 1.3 0 1.5-2.3 1.9-4.2.3-1.5.6-2.6 1.5-2.6s1.2 1.1 1.5 2.6c.4 1.9.6 4.2 1.9 4.2 1.2 0 1.7-2 2-3.4.5-2 .8-4.3 1.3-6.3.6-2.5.9-5.3-.4-6.7-1-1-1.9-.2-3.4-.2S14.4 3 12 3Z"/></svg></span>
+            <h3>Lentes em resina</h3>
+            <p class="oque">Reconstrução do formato e da cor do dente feita direto na consulta, camada por camada.</p>
+            <p class="pra-voce"><strong>Na prática:</strong> transformação do sorriso sem desgastar o dente e, na maioria dos casos, em menos sessões.</p>
+          </article>
+          <article class="tec reveal" style="--i:0">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><rect x="5" y="8.8" width="4.2" height="6.4" rx="1.3"/><rect x="14.8" y="8.8" width="4.2" height="6.4" rx="1.3"/></svg></span>
+            <h3>Aparelho invisível</h3>
+            <p class="oque">Alinhadores transparentes, feitos a partir do escaneamento em 3D dos seus dentes.</p>
+            <p class="pra-voce"><strong>Na prática:</strong> dá pra tirar pra comer e escovar, e quase ninguém percebe que você está usando.</p>
+          </article>
+          <article class="tec reveal" style="--i:1">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12c0 4.1-3.8 7.4-8.5 7.4-1 0-2-.2-2.9-.4L4 20.5l1.4-3.6A7 7 0 0 1 3.5 12C3.5 7.9 7.3 4.6 12 4.6s8.5 3.3 8.5 7.4Z"/></svg></span>
+            <h3>Plano na tela, antes de começar</h3>
+            <p class="oque">Com o escaneamento e o raio-X na mão, o plano de tratamento é mostrado e explicado antes de qualquer procedimento.</p>
+            <p class="pra-voce"><strong>Na prática:</strong> você entende o que vai ser feito e quanto custa antes de sentar na cadeira.</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
