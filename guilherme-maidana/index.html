@@ -245,6 +245,18 @@ p { margin: 0; }
   box-shadow: 0 40px 90px -40px rgba(0,0,0,.75);
 }
 .video-wrap video { max-height: 78vh; object-fit: contain; }
+.player { position: relative; border-radius: var(--r-card); overflow: hidden; }
+.player video { border-radius: var(--r-card); }
+.som {
+  position: absolute; left: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border: 0; border-radius: 999px; cursor: pointer;
+  background: color-mix(in srgb, #000 55%, transparent); backdrop-filter: blur(8px); color: #fff;
+  font-family: var(--body); font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .09em;
+  transition: background .3s;
+}
+.som:hover { background: color-mix(in srgb, #000 74%, transparent); }
+.som svg { width: 17px; height: 17px; }
+.player.com-som .som { background: var(--brand); }
 .video-wrap iframe { aspect-ratio: 16/9; border: 0; }
 /* embed do Instagram vem com cabeçalho e rodapé próprios: altura fixa, não proporção */
 .video-wrap.vertical iframe { aspect-ratio: auto; height: 700px; background: var(--ground); }
@@ -579,8 +591,11 @@ p { margin: 0; }
       <div class="tec-layout">
 
       <div class="video-wrap vertical reveal">
-        <iframe src="https://www.instagram.com/reel/DZnFCUxgu0v/embed/" title="Tecnologia no consultório do Dr. Guilherme Maidana" loading="lazy" allowfullscreen></iframe>
-        <p class="video-legenda">Veja no vídeo como funciona a tecnologia usada nas consultas.</p>
+        <div class="player" data-auto>
+          <video muted loop playsinline preload="metadata"><source src="img/tecnologia.mp4" type="video/mp4">Seu navegador não abre vídeo.</video>
+          <button class="som" type="button" aria-label="Ligar o som"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M16 9.5l4.5 5M20.5 9.5l-4.5 5"/></svg><span>ligar som</span></button>
+        </div>
+        <p class="video-legenda">A tecnologia que você vai encontrar na sua consulta.</p>
       </div>
         <div class="tec-lista">
           <article class="tec reveal" style="--i:0">
@@ -911,6 +926,22 @@ const obs = new IntersectionObserver(es => es.forEach(e => {
   if (e.isIntersecting) { e.target.classList.add('visivel'); obs.unobserve(e.target); }
 }), { threshold: .1, rootMargin: '0px 0px -70px' });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// vídeo toca sozinho quando entra na tela e pausa quando sai (economiza dados)
+for (const player of document.querySelectorAll('.player[data-auto]')) {
+  const video = player.querySelector('video');
+  const botao = player.querySelector('.som');
+  new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) video.play().catch(() => {}); else video.pause();
+  }), { threshold: .4 }).observe(player);
+
+  botao?.addEventListener('click', () => {
+    video.muted = !video.muted;
+    player.classList.toggle('com-som', !video.muted);
+    botao.querySelector('span').textContent = video.muted ? 'ligar som' : 'som ligado';
+    if (!video.muted) video.play().catch(() => {});
+  });
+}
 
 const lb = document.getElementById('lightbox'), lbImg = document.getElementById('lbImg');
 const fotos = [...document.querySelectorAll('.mosaico button')];
