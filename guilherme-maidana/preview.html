@@ -211,6 +211,33 @@ p { margin: 0; }
 .card .saiba svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
 .card:hover .saiba svg { transform: translateX(5px); }
 
+/* ---------- tecnologia / equipamentos ---------- */
+.tec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.tec {
+  background: var(--ground); border-radius: var(--r-card); padding: 32px 30px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 18%, transparent);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.tec .ico { color: var(--brand); }
+.tec .ico svg { width: 30px; height: 30px; }
+.tec h3 { font-size: 1.22rem; }
+.tec .oque { color: var(--ink-70); font-size: .96rem; }
+.tec .pra-voce {
+  margin-top: auto; padding-top: 14px; font-size: .92rem; color: var(--brand-escuro);
+  border-top: 1px solid color-mix(in srgb, var(--brand) 18%, transparent);
+}
+.tec .pra-voce strong { font-weight: 600; }
+
+.video-wrap { margin-top: clamp(30px, 4vw, 48px); }
+.video-wrap video, .video-wrap iframe {
+  width: 100%; display: block; border-radius: var(--r-card); background: var(--escuro);
+  box-shadow: 0 40px 80px -50px color-mix(in srgb, var(--ink) 55%, transparent);
+}
+.video-wrap video { max-height: 78vh; object-fit: contain; }
+.video-wrap iframe { aspect-ratio: 16/9; border: 0; }
+.video-wrap.vertical { max-width: 420px; margin-left: auto; margin-right: auto; }
+.video-legenda { text-align: center; color: var(--ink-55); font-size: .88rem; margin-top: 14px; }
+
 /* ---------- diferenciais ---------- */
 .dif { display: flex; gap: 18px; padding: 4px 0; }
 .dif .ico { color: var(--brand); flex: none; }
@@ -418,7 +445,7 @@ p { margin: 0; }
 <header class="topo" id="topo">
   <div class="container topo-in">
     <a class="marca" href="#inicio"><span class="marca-txt">Dr. Guilherme Maidana<span>Clínica odontológica · Campo Grande</span></span></a>
-    <nav class="nav"><a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#diferenciais">Diferenciais</a><a href="#sobre">Sobre</a><a href="#avaliacoes">Avaliações</a><a href="#galeria">Galeria</a><a href="#faq">Dúvidas</a><a href="#contato">Contato</a></nav>
+    <nav class="nav"><a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#tecnologia">Tecnologia</a><a href="#diferenciais">Diferenciais</a><a href="#sobre">Sobre</a><a href="#avaliacoes">Avaliações</a><a href="#galeria">Galeria</a><a href="#faq">Dúvidas</a><a href="#contato">Contato</a></nav>
     <a class="btn btn-zap" href="https://wa.me/5567996262626?text=Ol%C3%A1!%20Vi%20o%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.2.6-1.2 1.1-1.7 1.2-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.2 1.2 1.1 2.3 1.4 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .8-.4 1.4Z"/></svg> WhatsApp</a>
     <button class="menu-btn" id="abrirMenu" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
   </div>
@@ -427,7 +454,7 @@ p { margin: 0; }
 <div class="veu" id="veu"></div>
 <aside class="gaveta" id="gaveta" aria-label="Menu">
   <div class="gaveta-topo"><button class="fechar-btn" id="fecharMenu" aria-label="Fechar menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#diferenciais">Diferenciais</a><a href="#sobre">Sobre</a><a href="#avaliacoes">Avaliações</a><a href="#galeria">Galeria</a><a href="#faq">Dúvidas</a><a href="#contato">Contato</a>
+  <a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#tecnologia">Tecnologia</a><a href="#diferenciais">Diferenciais</a><a href="#sobre">Sobre</a><a href="#avaliacoes">Avaliações</a><a href="#galeria">Galeria</a><a href="#faq">Dúvidas</a><a href="#contato">Contato</a>
   <a class="btn btn-zap" href="https://wa.me/5567996262626?text=Ol%C3%A1!%20Vi%20o%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.2.6-1.2 1.1-1.7 1.2-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.2 1.2 1.1 2.3 1.4 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .8-.4 1.4Z"/></svg> Falar no WhatsApp</a>
 </aside>
 
@@ -520,6 +547,57 @@ p { margin: 0; }
       </div>
     </div>
   </section>
+
+
+  <!-- tecnologia -->
+  <section id="tecnologia">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Tecnologia</span>
+        <h2>Como é a sua consulta aqui</h2>
+        <p>Equipamento bom não é enfeite. É o que faz a consulta ser mais rápida, mais precisa e bem mais confortável pra você.</p>
+      </div>
+      <div class="tec-grid">
+        <article class="tec reveal" style="--i:0">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z"/><path d="M18.5 16.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></svg></span>
+          <h3>Airflow — limpeza com jato</h3>
+          <p class="oque">Limpeza feita com jato de ar, água e pó fino, no lugar da raspagem tradicional com aquele barulho de aparelho.</p>
+          <p class="pra-voce"><strong>Na prática:</strong> sem o raspador, sem aquele barulho e sem a sensibilidade que a limpeza costuma deixar depois.</p>
+        </article>
+        <article class="tec reveal" style="--i:1">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 3.5h6v3H9z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <h3>Scanner intraoral</h3>
+          <p class="oque">Uma canetinha passa pela sua boca e monta o modelo dos seus dentes em 3D na tela, na hora.</p>
+          <p class="pra-voce"><strong>Na prática:</strong> acabou a massinha de moldagem e aquela ânsia de vômito. E você vê seus dentes na tela junto com o dentista.</p>
+        </article>
+        <article class="tec reveal" style="--i:2">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.2c0 4.6-3.2 8.6-7.5 10-4.3-1.4-7.5-5.4-7.5-10V6L12 3Z"/><path d="M9.2 12l2 2 3.6-3.7"/></svg></span>
+          <h3>Raio-X digital</h3>
+          <p class="oque">Imagem digital que aparece na tela em segundos, com dose de radiação bem menor que a do raio-X antigo.</p>
+          <p class="pra-voce"><strong>Na prática:</strong> você não espera revelação de filme e enxerga o problema na tela enquanto ele é explicado.</p>
+        </article>
+        <article class="tec reveal" style="--i:0">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c-2.4 0-2.9 1-4.4 1S5 3.2 4 4.2C2.7 5.6 3 8.4 3.6 10.9c.5 2 .8 4.3 1.3 6.3.3 1.4.8 3.4 2 3.4 1.3 0 1.5-2.3 1.9-4.2.3-1.5.6-2.6 1.5-2.6s1.2 1.1 1.5 2.6c.4 1.9.6 4.2 1.9 4.2 1.2 0 1.7-2 2-3.4.5-2 .8-4.3 1.3-6.3.6-2.5.9-5.3-.4-6.7-1-1-1.9-.2-3.4-.2S14.4 3 12 3Z"/></svg></span>
+          <h3>Lentes em resina</h3>
+          <p class="oque">Reconstrução do formato e da cor do dente feita direto na consulta, camada por camada.</p>
+          <p class="pra-voce"><strong>Na prática:</strong> transformação do sorriso sem desgastar o dente e, na maioria dos casos, em menos sessões.</p>
+        </article>
+        <article class="tec reveal" style="--i:1">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18"/><rect x="5" y="8.8" width="4.2" height="6.4" rx="1.3"/><rect x="14.8" y="8.8" width="4.2" height="6.4" rx="1.3"/></svg></span>
+          <h3>Aparelho invisível</h3>
+          <p class="oque">Alinhadores transparentes, feitos a partir do escaneamento em 3D dos seus dentes.</p>
+          <p class="pra-voce"><strong>Na prática:</strong> dá pra tirar pra comer e escovar, e quase ninguém percebe que você está usando.</p>
+        </article>
+        <article class="tec reveal" style="--i:2">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12c0 4.1-3.8 7.4-8.5 7.4-1 0-2-.2-2.9-.4L4 20.5l1.4-3.6A7 7 0 0 1 3.5 12C3.5 7.9 7.3 4.6 12 4.6s8.5 3.3 8.5 7.4Z"/></svg></span>
+          <h3>Plano na tela, antes de começar</h3>
+          <p class="oque">Com o escaneamento e o raio-X na mão, o plano de tratamento é mostrado e explicado antes de qualquer procedimento.</p>
+          <p class="pra-voce"><strong>Na prática:</strong> você entende o que vai ser feito e quanto custa antes de sentar na cadeira.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
 
   <!-- 4. diferenciais -->
   <section class="faixa-2" id="diferenciais">
@@ -767,7 +845,7 @@ p { margin: 0; }
         <p>Clínica odontológica em Centro, Campo Grande. Nota 5,0 no Google com 69 avaliações de pacientes.</p>
         <div class="redes"><a href="https://instagram.com/drguilhermemaidana" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://wa.me/5567996262626?text=Ol%C3%A1!%20Vi%20o%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.2.6-1.2 1.1-1.7 1.2-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.2 1.2 1.1 2.3 1.4 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .8-.4 1.4Z"/></svg></a></div>
       </div>
-      <div><h4>Navegação</h4><ul><li><a href="#inicio">Início</a></li><li><a href="#servicos">Serviços</a></li><li><a href="#diferenciais">Diferenciais</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#avaliacoes">Avaliações</a></li><li><a href="#galeria">Galeria</a></li><li><a href="#faq">Dúvidas</a></li><li><a href="#contato">Contato</a></li></ul></div>
+      <div><h4>Navegação</h4><ul><li><a href="#inicio">Início</a></li><li><a href="#servicos">Serviços</a></li><li><a href="#tecnologia">Tecnologia</a></li><li><a href="#diferenciais">Diferenciais</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#avaliacoes">Avaliações</a></li><li><a href="#galeria">Galeria</a></li><li><a href="#faq">Dúvidas</a></li><li><a href="#contato">Contato</a></li></ul></div>
       <div><h4>Serviços</h4><ul><li><a href="#servicos">Ortodontia</a></li><li><a href="#servicos">Estética do sorriso</a></li><li><a href="#servicos">Cirurgia e extrações</a></li><li><a href="#servicos">Limpeza e prevenção</a></li><li><a href="#servicos">Avaliação completa</a></li></ul></div>
       <div><h4>Contato</h4><ul><li><a href="https://wa.me/5567996262626?text=Ol%C3%A1!%20Vi%20o%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">(67) 99626-2626</a></li><li><a href="https://maps.google.com/?cid=7409436818242296956&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNlEAIYBCAA" target="_blank" rel="noopener">R. Joaquim Murtinho, 1459 - Centro, Campo Grande - MS, 79003-020</a></li></ul></div>
     </div>
