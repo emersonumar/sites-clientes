@@ -215,6 +215,35 @@ p { margin: 0; }
 .card .saiba svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
 .card:hover .saiba svg { transform: translateX(5px); }
 
+/* ---------- tecnologia / equipamentos ---------- */
+.tec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.tec {
+  background: var(--ground); border-radius: var(--r-card); padding: 32px 30px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 18%, transparent);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.tec .ico { color: var(--brand); }
+.tec .ico svg { width: 30px; height: 30px; }
+.tec h3 { font-size: 1.22rem; }
+.tec .oque { color: var(--ink-70); font-size: .96rem; }
+.tec .pra-voce {
+  margin-top: auto; padding-top: 14px; font-size: .92rem; color: var(--brand-escuro);
+  border-top: 1px solid color-mix(in srgb, var(--brand) 18%, transparent);
+}
+.tec .pra-voce strong { font-weight: 600; }
+
+.video-wrap { margin-top: clamp(30px, 4vw, 48px); }
+.video-wrap video, .video-wrap iframe {
+  width: 100%; display: block; border-radius: var(--r-card); background: var(--escuro);
+  box-shadow: 0 40px 80px -50px color-mix(in srgb, var(--ink) 55%, transparent);
+}
+.video-wrap video { max-height: 78vh; object-fit: contain; }
+.video-wrap iframe { aspect-ratio: 16/9; border: 0; }
+/* embed do Instagram vem com cabeçalho e rodapé próprios: altura fixa, não proporção */
+.video-wrap.vertical { max-width: 420px; margin-left: auto; margin-right: auto; }
+.video-wrap.vertical iframe { aspect-ratio: auto; height: 720px; background: var(--ground); border-radius: var(--r-card); }
+.video-legenda { text-align: center; color: var(--ink-55); font-size: .88rem; margin-top: 14px; }
+
 /* ---------- diferenciais ---------- */
 .dif { display: flex; gap: 18px; padding: 4px 0; }
 .dif .ico { color: var(--brand); flex: none; }
@@ -526,6 +555,8 @@ p { margin: 0; }
     </div>
   </section>
 
+
+
   <!-- 4. diferenciais -->
   <section class="faixa-2" id="diferenciais">
     <div class="container">
@@ -565,7 +596,7 @@ p { margin: 0; }
       </div>
       <div class="sobre-txt reveal">
         <span class="eyebrow">Sobre a RS Odontologia</span>
-        <h2>Quem cuida de Jardim Sao Lourenco</h2>
+        <h2>Quem vai cuidar do seu sorriso</h2>
         <p>A RS Odontologia atende no bairro Jardim Sao Lourenco, em Campo Grande. Nas avaliações do Google, o que mais se repete não é equipamento nem estrutura — é a forma como o paciente é tratado: com atenção, explicação clara e sem pressa. São 23 pessoas que voltaram ao Google para registrar isso.</p>
         <ul class="sobre-lista">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.3l2.4 2.4 4.6-4.8"/></svg><span>23 avaliações no Google, com nota 5,0</span></li>

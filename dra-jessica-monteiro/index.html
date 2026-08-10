@@ -215,6 +215,35 @@ p { margin: 0; }
 .card .saiba svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
 .card:hover .saiba svg { transform: translateX(5px); }
 
+/* ---------- tecnologia / equipamentos ---------- */
+.tec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.tec {
+  background: var(--ground); border-radius: var(--r-card); padding: 32px 30px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 18%, transparent);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.tec .ico { color: var(--brand); }
+.tec .ico svg { width: 30px; height: 30px; }
+.tec h3 { font-size: 1.22rem; }
+.tec .oque { color: var(--ink-70); font-size: .96rem; }
+.tec .pra-voce {
+  margin-top: auto; padding-top: 14px; font-size: .92rem; color: var(--brand-escuro);
+  border-top: 1px solid color-mix(in srgb, var(--brand) 18%, transparent);
+}
+.tec .pra-voce strong { font-weight: 600; }
+
+.video-wrap { margin-top: clamp(30px, 4vw, 48px); }
+.video-wrap video, .video-wrap iframe {
+  width: 100%; display: block; border-radius: var(--r-card); background: var(--escuro);
+  box-shadow: 0 40px 80px -50px color-mix(in srgb, var(--ink) 55%, transparent);
+}
+.video-wrap video { max-height: 78vh; object-fit: contain; }
+.video-wrap iframe { aspect-ratio: 16/9; border: 0; }
+/* embed do Instagram vem com cabeçalho e rodapé próprios: altura fixa, não proporção */
+.video-wrap.vertical { max-width: 420px; margin-left: auto; margin-right: auto; }
+.video-wrap.vertical iframe { aspect-ratio: auto; height: 720px; background: var(--ground); border-radius: var(--r-card); }
+.video-legenda { text-align: center; color: var(--ink-55); font-size: .88rem; margin-top: 14px; }
+
 /* ---------- diferenciais ---------- */
 .dif { display: flex; gap: 18px; padding: 4px 0; }
 .dif .ico { color: var(--brand); flex: none; }
@@ -442,7 +471,7 @@ p { margin: 0; }
     <div class="container hero-grid">
       <div class="reveal">
         <span class="pill-social"><span class="estrelas" aria-hidden="true">★</span> <b>5,0</b> no Google · 15 avaliações</span>
-        <h1>Odontologia de confiança <em>no bairro Santa Fe</em></h1>
+        <h1>Odontologia de confiança, <em>do começo ao fim</em></h1>
         <p class="lead">Você sai da primeira consulta sabendo o que precisa ser feito, quanto custa e quanto tempo leva. Sem surpresa depois e sem empurrar tratamento que você não precisa.</p>
         <div class="hero-ctas">
           <a class="btn btn-zap" href="https://wa.me/5567991125336?text=Ol%C3%A1!%20Vi%20o%20site%20e%20quero%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.2.6-1.2 1.1-1.7 1.2-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.2 1.2 1.1 2.3 1.4 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .8-.4 1.4Z"/></svg> Falar pelo WhatsApp</a>
@@ -526,6 +555,8 @@ p { margin: 0; }
     </div>
   </section>
 
+
+
   <!-- 4. diferenciais -->
   <section class="faixa-2" id="diferenciais">
     <div class="container">
@@ -572,7 +603,7 @@ p { margin: 0; }
       </div>
       <div class="sobre-txt reveal">
         <span class="eyebrow">Sobre a Dra Jéssica Monteiro</span>
-        <h2>Quem cuida de Santa Fe</h2>
+        <h2>Quem vai cuidar do seu sorriso</h2>
         <p>A Dra Jéssica Monteiro - Harmonização Orofacial atende no bairro Santa Fe, em Campo Grande. Nas avaliações do Google, o que mais se repete não é equipamento nem estrutura — é a forma como o paciente é tratado: com atenção, explicação clara e sem pressa. São 15 pessoas que voltaram ao Google para registrar isso.</p>
         <ul class="sobre-lista">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.3l2.4 2.4 4.6-4.8"/></svg><span>15 avaliações no Google, com nota 5,0</span></li>
