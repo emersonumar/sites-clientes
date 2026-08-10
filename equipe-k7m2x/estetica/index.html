@@ -138,6 +138,7 @@
     padding: 14px 18px; margin-bottom: 18px; font-size: .88rem;
   }
   .barra-eq .cont { font-family: var(--mono); color: var(--ink-soft); font-size: .8rem; }
+  .barra-eq .sync { font-family: var(--mono); font-size: .72rem; color: var(--social); margin-left: auto; margin-right: 12px; }
   .barra-eq .cont b { color: var(--ink); }
   .btn-copiar {
     font-family: var(--mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
@@ -201,7 +202,8 @@
 
   <div class="barra-eq">
     <span class="cont" id="contador">nenhum lead marcado ainda</span>
-    <button class="btn-copiar" id="copiar">Copiar resumo pro Emerson</button>
+    <span class="sync" id="sync">carregando o que a equipe já marcou…</span>
+    <button class="btn-copiar" id="copiar">Copiar resumo</button>
   </div>
 
   <div class="lista" id="lista"></div>
@@ -249,7 +251,46 @@ function preencher(texto, l) {
     .replaceAll('{LINK}', l.site_pronto || '');
 }
 
-// status marcado por quem está ligando — fica salvo no navegador dele
+// ---- status compartilhado ----
+// Antes ficava só no navegador de quem ligava, então o Emerson não via nada.
+// Agora vai pro Supabase: quem abrir o painel vê o mesmo estado, de qualquer aparelho.
+// O localStorage continua como rede de segurança se a internet falhar.
+const API = 'https://qncxgwrjnlaeyonkncqu.supabase.co/rest/v1/crm_sites_status';
+const APIKEY = 'sb_publishable_WdT3gUyAV7VY0FkSW15-SA_o23OVIhC';
+const NICHO = document.title.split('·')[0].trim();
+const cab = { apikey: APIKEY, Authorization: 'Bearer ' + APIKEY, 'Content-Type': 'application/json' };
+
+async function puxarDaNuvem() {
+  try {
+    const r = await fetch(API + '?select=place_id,status,quem,atualizado&nicho=eq.' + encodeURIComponent(NICHO), { headers: cab });
+    if (!r.ok) throw new Error(r.status);
+    const linhas = await r.json();
+    for (const l of linhas) if (l.status) { STATUS[l.place_id] = l.status; QUEM[l.place_id] = l; }
+    salvar(); contar(); render();
+    marcaSync('sincronizado', linhas.length);
+  } catch (e) { marcaSync('offline — usando o que está salvo neste aparelho'); }
+}
+
+async function mandarPraNuvem(id, status, lead) {
+  try {
+    const r = await fetch(API + '?on_conflict=place_id', {
+      method: 'POST',
+      headers: { ...cab, Prefer: 'resolution=merge-duplicates' },
+      body: JSON.stringify({ place_id: id, nicho: NICHO, nome: lead?.nome || '', status, quem: MSG.eu || '', atualizado: new Date().toISOString() }),
+    });
+    if (!r.ok) throw new Error(r.status);
+    marcaSync('salvo pra equipe');
+  } catch (e) { marcaSync('não consegui salvar online — está guardado aqui'); }
+}
+
+function marcaSync(txt, n) {
+  const el = document.getElementById('sync');
+  if (el) el.textContent = n !== undefined ? txt + ' · ' + n + ' marcados pela equipe' : txt;
+}
+
+const QUEM = {};
+
+// cópia local (rede de segurança)
 const CHAVE = 'status-' + document.title;
 const ESTADOS = [['', '— status —'], ['contatado', 'contatado'], ['retorno', 'deu retorno'], ['fechou', 'FECHOU'], ['recusou', 'recusou'], ['semresposta', 'sem resposta']];
 let STATUS = {};
@@ -327,6 +368,7 @@ lista.addEventListener('change', e => {
   salvar();
   s.closest('.lead').dataset.s = s.value;
   contar();
+  mandarPraNuvem(s.dataset.id, s.value, LEADS.find(l => l.id === s.dataset.id));
 });
 
 document.getElementById('copiar').addEventListener('click', async () => {
@@ -357,6 +399,10 @@ for (const b of document.querySelectorAll('.filtro.tipo')) {
 }
 render();
 contar();
+puxarDaNuvem();
+// quem deixa a aba aberta o dia todo recebe o que o outro marcou
+setInterval(puxarDaNuvem, 60000);
+addEventListener('focus', puxarDaNuvem);
 </script>
 
 </html>
