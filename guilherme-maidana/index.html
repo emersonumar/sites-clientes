@@ -239,7 +239,9 @@ p { margin: 0; }
 }
 .video-wrap video { max-height: 78vh; object-fit: contain; }
 .video-wrap iframe { aspect-ratio: 16/9; border: 0; }
+/* embed do Instagram vem com cabeçalho e rodapé próprios: altura fixa, não proporção */
 .video-wrap.vertical { max-width: 420px; margin-left: auto; margin-right: auto; }
+.video-wrap.vertical iframe { aspect-ratio: auto; height: 720px; background: var(--ground); border-radius: var(--r-card); }
 .video-legenda { text-align: center; color: var(--ink-55); font-size: .88rem; margin-top: 14px; }
 
 /* ---------- diferenciais ---------- */
@@ -599,6 +601,10 @@ p { margin: 0; }
           <p class="oque">Com o escaneamento e o raio-X na mão, o plano de tratamento é mostrado e explicado antes de qualquer procedimento.</p>
           <p class="pra-voce"><strong>Na prática:</strong> você entende o que vai ser feito e quanto custa antes de sentar na cadeira.</p>
         </article>
+      </div>
+      <div class="video-wrap vertical reveal">
+        <iframe src="https://www.instagram.com/reel/DZnFCUxgu0v/embed/" title="Tecnologia no consultório do Dr. Guilherme Maidana" loading="lazy" allowfullscreen></iframe>
+        <p class="video-legenda">Veja no vídeo como funciona a tecnologia usada nas consultas.</p>
       </div>
     </div>
   </section>
