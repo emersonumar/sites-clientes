@@ -128,6 +128,15 @@
   .lead[data-s="retorno"] { border-color: var(--oportuno); }
   .lead[data-s="fechou"] { border-color: #16a34a; background: color-mix(in srgb, #16a34a 6%, var(--card)); }
   .lead[data-s="recusou"] { opacity: .5; }
+  .lead[data-s="semresposta"] { border-color: var(--ink-soft); border-style: dashed; }
+  .lead[data-s="semresposta"] select.status { border-color: var(--ink-soft); }
+  /* etiqueta do status no proprio cartao: sem ela so da pra saber lendo o seletor */
+  .pill.st { border: 0; font-weight: 700; letter-spacing: .04em; }
+  .pill.st.contatado { background: #6b8cff; color: #fff; }
+  .pill.st.retorno { background: var(--oportuno); color: #1a1200; }
+  .pill.st.fechou { background: #16a34a; color: #fff; }
+  .pill.st.recusou { background: #b91c1c; color: #fff; }
+  .pill.st.semresposta { background: var(--ink-soft); color: var(--card); }
   .lead[data-s="contatado"] select.status { border-color: #6b8cff; color: #6b8cff; }
   .lead[data-s="retorno"] select.status { border-color: var(--oportuno); color: var(--oportuno); }
   .lead[data-s="fechou"] select.status { border-color: #16a34a; color: #16a34a; font-weight: 700; }
@@ -349,6 +358,7 @@ function render() {
       '<span class="pill ' + cls + '">' + rotulo + '</span>' +
       '<span class="pill tp">' + l.tipo + '</span>' +
       (l.site_pronto ? '<span class="pill pronto">site pronto</span>' : '') +
+      (st ? '<span class="pill st ' + st + '">' + (ESTADOS.find(e => e[0] === st) || ['', st])[1] + '</span>' : '') +
       (l.fone_fmt ? '<span>' + l.fone_fmt + '</span>' : '') +
       (l.end ? '<span>' + l.end + '</span>' : '') +
       '</span>' +
