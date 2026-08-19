@@ -151,8 +151,12 @@
   .rodape { margin-top: 28px; font-size: .8rem; color: var(--ink-soft); font-family: var(--mono); }
 
   @media (max-width: 620px) {
-    .lead { grid-template-columns: 34px 1fr; }
-    .acoes { grid-column: 1 / -1; grid-row: auto; margin-top: 8px; }
+    .lead { grid-template-columns: 34px 1fr; padding: 14px 12px; }
+    /* sem quebrar linha, os 6 botoes numa fila so empurravam a pagina pra fora da tela */
+    .acoes { grid-column: 1 / -1; grid-row: auto; margin-top: 10px; flex-wrap: wrap; }
+    .acoes > * { flex: 1 1 auto; text-align: center; }
+    .acoes select.status { flex-basis: 100%; }
+    .meta { font-size: .78rem; }
   }
 </style>
 
