@@ -196,6 +196,7 @@
       <button class="filtro" data-f="todos" aria-pressed="true">Todos</button>
       <button class="filtro" data-f="SEM SITE" aria-pressed="false">Sem site</button>
       <button class="filtro" data-f="SÓ REDE SOCIAL" aria-pressed="false">Só rede</button>
+      <button class="filtro" data-f="marcados" aria-pressed="false">Marcados</button>
     </div>
     <div class="filtros">
       <button class="filtro tipo" data-t="todos" aria-pressed="true">Todo tipo</button>
@@ -307,7 +308,7 @@ function contar() {
   document.getElementById('contador').innerHTML = v.length
     ? '<b>' + v.length + '</b> marcados · <b>' + n('contatado') + '</b> contatados · <b>'
       + n('retorno') + '</b> com retorno · <b>' + n('fechou') + '</b> fechados · <b>'
-      + n('recusou') + '</b> recusaram'
+      + n('semresposta') + '</b> sem resposta · <b>' + n('recusou') + '</b> recusaram'
     : 'nenhum lead marcado ainda';
 }
 
@@ -320,7 +321,7 @@ function zap(l, qual) {
 function render() {
   const q = busca.value.trim().toLowerCase();
   const itens = LEADS.filter(l =>
-    (filtro === 'todos' || l.situacao === filtro) &&
+    (filtro === 'todos' || (filtro === 'marcados' ? !!STATUS[l.id] : l.situacao === filtro)) &&
     (filtroTipo === 'todos' || l.tipo === filtroTipo) &&
     (!q || (l.nome + ' ' + l.end).toLowerCase().includes(q))
   );
