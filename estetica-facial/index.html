@@ -468,7 +468,9 @@ p { margin: 0; }
 @media (max-width: 1000px) {
   .hero-grid, .sobre-grid, .contato-grid { grid-template-columns: 1fr; }
   .hero-media { order: -1; }
-  .hero-media > img { aspect-ratio: 4/3; }
+  /* Moldura deitada + foto em pe = corte pelo meio, que num retrato decepa a cabeca.
+     Ancorar o corte perto do topo mantem o rosto. */
+  .hero-media > img { aspect-ratio: 4/3; object-position: 50% 18%; }
   .card-nota { right: 16px; bottom: 16px; }
   .cred { grid-template-columns: repeat(2, 1fr); gap: 30px 0; }
   .cred-item:nth-child(3) { border-left: 0; }
