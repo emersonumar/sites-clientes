@@ -469,7 +469,14 @@ p { margin: 0; }
   /* Moldura deitada + foto em pe = corte pelo meio, que num retrato decepa a cabeca.
      Ancorar o corte perto do topo mantem o rosto. */
   .hero-media > img { aspect-ratio: 4/3; object-position: 50% 18%; }
-  .card-nota { right: 16px; bottom: 16px; }
+  /* No desktop o cartao fica fora da moldura e sobra espaco. No celular a moldura
+     encolhe e ele, com tamanho fixo, ocupava 84% da largura da foto — virava uma
+     faixa atravessada no meio do retrato. Aqui ele vira selo de canto. */
+  .card-nota { right: 12px; bottom: 12px; padding: 9px 13px; gap: 10px; border-radius: 13px; }
+  .card-nota .g { font-size: 1.1rem; }
+  .card-nota .n { font-size: 1.2rem; }
+  .card-nota .estrelas { font-size: .8rem; }
+  .card-nota small { font-size: .62rem; margin-top: 2px; letter-spacing: .03em; }
   .cred { grid-template-columns: repeat(2, 1fr); gap: 30px 0; }
   .cred-item:nth-child(3) { border-left: 0; }
   .etapas { grid-template-columns: repeat(2, 1fr); }
