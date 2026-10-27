@@ -216,6 +216,22 @@ p { margin: 0; }
 .card .saiba svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
 .card:hover .saiba svg { transform: translateX(5px); }
 
+/* Duracao e preco como ATRIBUTO do card, nao enfiados no fim do paragrafo:
+   e o que a pessoa varre antes de ler qualquer descricao. */
+.card .meta { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: -2px 0 0; }
+.card .meta .preco { font-family: var(--display); font-weight: var(--peso-display); font-size: 1.4rem; line-height: 1; color: var(--brand); letter-spacing: -.01em; }
+.card .meta .dur { font-size: .7rem; text-transform: uppercase; letter-spacing: .13em; color: var(--ink-55); }
+.card .para { font-size: .85rem; color: var(--ink-55); border-left: 2px solid color-mix(in srgb, var(--brand) 26%, transparent); padding-left: 11px; }
+/* O carro-chefe nao pode ter o mesmo peso de um combo de presente. */
+.card.destaque { background: var(--tint-forte); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 38%, transparent); }
+.card.destaque .selo-top { font-size: .64rem; text-transform: uppercase; letter-spacing: .16em; color: var(--brand); font-weight: 600; margin-bottom: -4px; }
+
+/* Cabecalho de grupo: quebra a grade por intencao (tratar / cuidar / relaxar / presentear) */
+.grupo-head { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; margin: 26px 0 4px; }
+.grupo-head:first-child { margin-top: 0; }
+.grupo-head h3 { font-family: var(--body); font-size: .72rem; text-transform: uppercase; letter-spacing: .18em; color: var(--brand); font-weight: 600; margin: 0; }
+.grupo-head .fio { flex: 1; height: 1px; background: var(--linha); }
+
 /* ---------- tecnologia / equipamentos ----------
    É a seção que mais vende em clínica com equipamento bom, então ela é a âncora
    escura da página: fundo profundo, vídeo grande e a lista ao lado. */
@@ -473,7 +489,14 @@ p { margin: 0; }
   /* Moldura deitada + foto em pe = corte pelo meio, que num retrato decepa a cabeca.
      Ancorar o corte perto do topo mantem o rosto. */
   .hero-media > img { aspect-ratio: 4/3; object-position: 50% 18%; }
-  .card-nota { right: 16px; bottom: 16px; }
+  /* No desktop o cartao fica fora da moldura e sobra espaco. No celular a moldura
+     encolhe e ele, com tamanho fixo, ocupava 84% da largura da foto — virava uma
+     faixa atravessada no meio do retrato. Aqui ele vira selo de canto. */
+  .card-nota { right: 12px; bottom: 12px; padding: 9px 13px; gap: 10px; border-radius: 13px; }
+  .card-nota .g { font-size: 1.1rem; }
+  .card-nota .n { font-size: 1.2rem; }
+  .card-nota .estrelas { font-size: .8rem; }
+  .card-nota small { font-size: .62rem; margin-top: 2px; letter-spacing: .03em; }
   .cred { grid-template-columns: repeat(2, 1fr); gap: 30px 0; }
   .cred-item:nth-child(3) { border-left: 0; }
   .etapas { grid-template-columns: repeat(2, 1fr); }

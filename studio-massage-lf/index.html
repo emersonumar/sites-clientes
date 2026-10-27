@@ -216,6 +216,22 @@ p { margin: 0; }
 .card .saiba svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
 .card:hover .saiba svg { transform: translateX(5px); }
 
+/* Duracao e preco como ATRIBUTO do card, nao enfiados no fim do paragrafo:
+   e o que a pessoa varre antes de ler qualquer descricao. */
+.card .meta { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: -2px 0 0; }
+.card .meta .preco { font-family: var(--display); font-weight: var(--peso-display); font-size: 1.4rem; line-height: 1; color: var(--brand); letter-spacing: -.01em; }
+.card .meta .dur { font-size: .7rem; text-transform: uppercase; letter-spacing: .13em; color: var(--ink-55); }
+.card .para { font-size: .85rem; color: var(--ink-55); border-left: 2px solid color-mix(in srgb, var(--brand) 26%, transparent); padding-left: 11px; }
+/* O carro-chefe nao pode ter o mesmo peso de um combo de presente. */
+.card.destaque { background: var(--tint-forte); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--brand) 38%, transparent); grid-column: span 2; }
+.card.destaque .selo-top { font-size: .64rem; text-transform: uppercase; letter-spacing: .16em; color: var(--brand); font-weight: 600; margin-bottom: -4px; }
+
+/* Cabecalho de grupo: quebra a grade por intencao (tratar / cuidar / relaxar / presentear) */
+.grupo-head { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; margin: 26px 0 4px; }
+.grupo-head:first-child { margin-top: 0; }
+.grupo-head h3 { font-family: var(--body); font-size: .72rem; text-transform: uppercase; letter-spacing: .18em; color: var(--brand); font-weight: 600; margin: 0; }
+.grupo-head .fio { flex: 1; height: 1px; background: var(--linha); }
+
 /* ---------- tecnologia / equipamentos ----------
    É a seção que mais vende em clínica com equipamento bom, então ela é a âncora
    escura da página: fundo profundo, vídeo grande e a lista ao lado. */
@@ -476,6 +492,8 @@ p { margin: 0; }
   /* No desktop o cartao fica fora da moldura e sobra espaco. No celular a moldura
      encolhe e ele, com tamanho fixo, ocupava 84% da largura da foto — virava uma
      faixa atravessada no meio do retrato. Aqui ele vira selo de canto. */
+  /* Numa coluna so, span 2 criaria coluna fantasma. */
+  .card.destaque { grid-column: auto; }
   .card-nota { right: 12px; bottom: 12px; padding: 9px 13px; gap: 10px; border-radius: 13px; }
   .card-nota .g { font-size: 1.1rem; }
   .card-nota .n { font-size: 1.2rem; }
@@ -569,75 +587,102 @@ p { margin: 0; }
     <div class="container">
       <div class="section-head center reveal">
         <span class="eyebrow">Serviços</span>
-        <h2>Atendimentos e combos</h2>
-        <p>A tabela completa, com duração e valor. O protocolo para dor é o mais procurado — os demais atendem quem busca relaxamento, cuidado em fases específicas ou um presente.</p>
+        <h2>Atendimentos</h2>
+        <p>Tudo com duração e valor abertos. Comece pelo que te trouxe aqui — e se não souber qual escolher, me chama no WhatsApp que a gente decide junto.</p>
       </div>
       <div class="grid-3">
-        <article class="card reveal" style="--i:0">
+        <div class="grupo-head reveal"><h3>Tratamento para dor</h3><span class="fio"></span></div>
+        <article class="card reveal destaque" style="--i:0">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 13.5V7.2a1.4 1.4 0 0 1 2.8 0v4.3"/><path d="M9.3 11V5.9a1.4 1.4 0 0 1 2.8 0V11"/><path d="M12.1 11.2V6.8a1.4 1.4 0 0 1 2.8 0v5"/><path d="M14.9 11.8V9.3a1.4 1.4 0 0 1 2.8 0v4.9c0 3.4-2.2 6.3-5.6 6.3s-5.6-2.3-5.6-5.6"/></svg></span>
-          <h3>Tratamento personalizado para dor</h3>
-          <p>O carro-chefe do studio. Liberação miofascial, dry needling, ventosaterapia, tapping e eletroterapia combinados conforme a sua avaliação. 1h a 1h10 · R$ 135.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Tratamento%20personalizado%20para%20dor." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <span class="selo-top">O mais procurado</span>
+          <h3>Protocolo personalizado para dor</h3>
+          <p class="meta"><span class="preco">R$ 135</span><span class="dur">1h a 1h10</span></p>
+          <p>Liberação miofascial, dry needling, ventosaterapia, tapping e eletroterapia. A combinação sai da avaliação do seu caso — não existe protocolo igual para duas pessoas.</p>
+          <p class="para">Para quem convive com dor, tensão muscular ou sobrecarga que não passa sozinha.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Protocolo%20personalizado%20para%20dor." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
+        <div class="grupo-head reveal"><h3>Cuidado em fases específicas</h3><span class="fio"></span></div>
         <article class="card reveal" style="--i:1">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.3S3.8 15.4 3.8 9.7A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 8.2 2.1c0 5.7-8.2 10.6-8.2 10.6Z"/></svg></span>
           <h3>Gestante — cuidado completo</h3>
-          <p>Drenagem linfática para gestante, alívio das dores e aplicação de tape, num atendimento único. Não é vendido separado: é o cuidado inteiro. 1h40 · R$ 230.</p>
+          <p class="meta"><span class="preco">R$ 230</span><span class="dur">1h40</span></p>
+          <p>Drenagem linfática para gestante, alívio das dores e aplicação de tape, num atendimento único. Não é vendido em partes: na gestação as três coisas se complementam.</p>
+          <p class="para">Para gestantes com inchaço, peso nas pernas ou dor lombar.</p>
           <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Gestante%20%E2%80%94%20cuidado%20completo." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
         <article class="card reveal" style="--i:2">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c3 3.6 5.5 6.5 5.5 9.4A5.5 5.5 0 0 1 6.5 12.9c0-2.9 2.5-5.8 5.5-9.4Z"/><path d="M9.6 14.2a2.6 2.6 0 0 0 2.6 2.4"/></svg></span>
-          <h3>Drenagem linfática + manta térmica</h3>
-          <p>Drenagem conduzida com manta térmica durante a sessão. 1h15 · R$ 140.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Drenagem%20linf%C3%A1tica%20%2B%20manta%20t%C3%A9rmica." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.4"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0"/><path d="M15 20a4 4 0 0 1 6.5-3.1"/></svg></span>
+          <h3>Pós-parto — atendimento em casa</h3>
+          <p class="meta"><span class="preco">R$ 190</span><span class="dur">cerca de 45 min</span></p>
+          <p>Aplicação de tape e, quando indicada, fotobiomodulação com ILIB. A locomoção já está inclusa em toda Aquidauana e também em Anastácio.</p>
+          <p class="para">Para o puerpério, sem precisar sair de casa com o bebê.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20P%C3%B3s-parto%20%E2%80%94%20atendimento%20em%20casa." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
         <article class="card reveal" style="--i:0">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z"/><path d="M18.5 16.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></svg></span>
-          <h3>Ritual Renovação</h3>
-          <p>Massagem relaxante seguida de drenagem linfática, para quem quer os dois na mesma visita. 1h20 · R$ 160.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Ritual%20Renova%C3%A7%C3%A3o." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.2c0 4.6-3.2 8.6-7.5 10-4.3-1.4-7.5-5.4-7.5-10V6L12 3Z"/><path d="M9.2 12l2 2 3.6-3.7"/></svg></span>
+          <h3>Pós-operatório de plástica — em casa</h3>
+          <p class="meta"><span class="preco">Sob consulta</span><span class="dur">conforme a cirurgia</span></p>
+          <p>Recuperação assistida com drenagem, tape e fotobiomodulação com laser infravermelho, conforme avaliação e liberação da equipe cirúrgica. Valor e duração dependem do procedimento.</p>
+          <p class="para">Para quem operou e já tem liberação do cirurgião.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20P%C3%B3s-operat%C3%B3rio%20de%20pl%C3%A1stica%20%E2%80%94%20em%20casa." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
+        <div class="grupo-head reveal"><h3>Relaxamento e bem-estar</h3><span class="fio"></span></div>
         <article class="card reveal" style="--i:1">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2.1"/><path d="M12 8v7.5"/><path d="M12 8.6l-4.2 2M12 8.6l4.2 2"/><path d="M12 15.5l-2.4 5.5M12 15.5l2.4 5.5"/></svg></span>
-          <h3>Relaxante + ventosaterapia</h3>
-          <p>A massagem relaxante somada à ventosa, para quem chega com tensão localizada. 45 min · R$ 120.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Relaxante%20%2B%20ventosaterapia." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
-        </article>
-        <article class="card reveal" style="--i:2">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4.5c0 8.5-4.7 13.2-11 13.2-1.6 0-2.9-.3-3.8-.7"/><path d="M4 20.5c0-5.5 3-11 12.5-14"/><path d="M20 4.5c-8.5 0-14 3.4-14 9.3 0 1.6.4 2.8 1.2 3.7"/></svg></span>
           <h3>Massagem relaxante</h3>
-          <p>Para reduzir estresse e ansiedade e chegar ao relaxamento profundo. Serve para você ou para presentear. 40 min · R$ 100.</p>
+          <p class="meta"><span class="preco">R$ 100</span><span class="dur">40 min</span></p>
+          <p>Ritmo lento, sem interrupção, para reduzir estresse e ansiedade e chegar ao relaxamento profundo.</p>
+          <p class="para">Para quem precisa de uma pausa — ou quer presentear alguém que precisa.</p>
           <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Massagem%20relaxante." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
+        <article class="card reveal" style="--i:2">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="4.6" r="2.1"/><path d="M12 8v7.5"/><path d="M12 8.6l-4.2 2M12 8.6l4.2 2"/><path d="M12 15.5l-2.4 5.5M12 15.5l2.4 5.5"/></svg></span>
+          <h3>Relaxante + ventosaterapia</h3>
+          <p class="meta"><span class="preco">R$ 120</span><span class="dur">45 min</span></p>
+          <p>A massagem relaxante somada à ventosa, que trabalha a aderência e a circulação dos pontos de tensão.</p>
+          <p class="para">Para quem relaxa, mas tem um ponto específico que incomoda.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Relaxante%20%2B%20ventosaterapia." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+        </article>
         <article class="card reveal" style="--i:0">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.4"/><path d="M2.5 20a5.5 5.5 0 0 1 11 0"/><path d="M15 20a4 4 0 0 1 6.5-3.1"/></svg></span>
-          <h3>Pós-parto, na sua casa</h3>
-          <p>Atendimento domiciliar no puerpério, com aplicação de tape e, quando indicada, fotobiomodulação com ILIB. Locomoção já inclusa em Aquidauana e Anastácio. Cerca de 45 min · R$ 190.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20P%C3%B3s-parto%2C%20na%20sua%20casa." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c3 3.6 5.5 6.5 5.5 9.4A5.5 5.5 0 0 1 6.5 12.9c0-2.9 2.5-5.8 5.5-9.4Z"/><path d="M9.6 14.2a2.6 2.6 0 0 0 2.6 2.4"/></svg></span>
+          <h3>Drenagem linfática + manta térmica</h3>
+          <p class="meta"><span class="preco">R$ 140</span><span class="dur">1h15</span></p>
+          <p>Drenagem conduzida com manta térmica durante a sessão, em manobras leves do início ao fim.</p>
+          <p class="para">Para sensação de inchaço e retenção.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Drenagem%20linf%C3%A1tica%20%2B%20manta%20t%C3%A9rmica." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
         <article class="card reveal" style="--i:1">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.2c0 4.6-3.2 8.6-7.5 10-4.3-1.4-7.5-5.4-7.5-10V6L12 3Z"/><path d="M9.2 12l2 2 3.6-3.7"/></svg></span>
-          <h3>Pós-operatório de plástica, na sua casa</h3>
-          <p>Recuperação assistida a domicílio: drenagem, tape e fotobiomodulação com laser infravermelho, conforme avaliação e liberação da equipe cirúrgica. Duração e valor conforme a cirurgia — consulte.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20P%C3%B3s-operat%C3%B3rio%20de%20pl%C3%A1stica%2C%20na%20sua%20casa." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z"/><path d="M18.5 16.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></svg></span>
+          <h3>Ritual Renovação</h3>
+          <p class="meta"><span class="preco">R$ 160</span><span class="dur">1h20</span></p>
+          <p>Massagem relaxante seguida de drenagem linfática — os dois trabalhos na mesma visita.</p>
+          <p class="para">Para quem quer relaxar e drenar sem marcar duas vezes.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Ritual%20Renova%C3%A7%C3%A3o." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
+        <div class="grupo-head reveal"><h3>Para presentear</h3><span class="fio"></span></div>
         <article class="card reveal" style="--i:2">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5L7 21l5-2.4L17 21l-1.5-7.5"/></svg></span>
-          <h3>🎁 Presente de Cuidado</h3>
-          <p>Massagem relaxante com escalda-pés, acompanhado de cartão personalizado com o nome de quem presenteia e de quem recebe. 50 min · R$ 125.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20%F0%9F%8E%81%20Presente%20de%20Cuidado." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <h3>Presente de Cuidado</h3>
+          <p class="meta"><span class="preco">R$ 125</span><span class="dur">50 min</span></p>
+          <p>Massagem relaxante com escalda-pés, acompanhado de cartão personalizado com o nome de quem presenteia e de quem recebe.</p>
+          <p class="para">Aniversário, Dia das Mães, Dia dos Namorados.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Presente%20de%20Cuidado." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
         <article class="card reveal" style="--i:0">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9L12 3.5Z"/></svg></span>
-          <h3>🎁 Bride Experience</h3>
-          <p>Massagem relaxante, drenagem linfática e escalda-pés — uma pausa no meio dos preparativos do casamento. 1h45 · R$ 240.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20%F0%9F%8E%81%20Bride%20Experience." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <h3>Bride Experience</h3>
+          <p class="meta"><span class="preco">R$ 240</span><span class="dur">1h45</span></p>
+          <p>Massagem relaxante, drenagem linfática e escalda-pés — uma pausa no meio dos preparativos do casamento.</p>
+          <p class="para">Para a noiva, na reta final.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Bride%20Experience." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
         <article class="card reveal" style="--i:1">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 21c-1.6 0-2.6-1.2-2.6-2.9 0-2.2 1.4-3.2 1.4-5.4 0-1.6-.6-2.4-.6-4.2 0-3 2-5 4.6-5s4.2 1.9 4.2 4.6c0 3.4-2.2 5-2.2 7.4 0 1.4.5 2 .5 3.1 0 1.5-1 2.4-2.4 2.4Z"/><path d="M16.8 8.4c.9 0 1.6.7 1.6 1.6s-.7 1.6-1.6 1.6"/></svg></span>
-          <h3>🎁 Experience Birthday Glow</h3>
-          <p>Escalda-pés, protocolo terapêutico individualizado, massagem relaxante e caixinha presente. 1h40 · R$ 220.</p>
-          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20%F0%9F%8E%81%20Experience%20Birthday%20Glow." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
+          <h3>Experience Birthday Glow</h3>
+          <p class="meta"><span class="preco">R$ 220</span><span class="dur">1h40</span></p>
+          <p>Escalda-pés, protocolo terapêutico individualizado, massagem relaxante e caixinha presente ao final.</p>
+          <p class="para">Para quem faz aniversário e merece um dia inteiro de cuidado.</p>
+          <a class="saiba" href="https://wa.me/5567992042167?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20Experience%20Birthday%20Glow." target="_blank" rel="noopener">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg></a>
         </article>
       </div>
     </div>
@@ -989,7 +1034,7 @@ Nas 18 avaliações do Google, nota 5, o que mais aparece não é equipamento ne
         <div class="redes"><a href="https://instagram.com/studiomassage.lf" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://wa.me/5567992042167?text=Ol%C3%A1%2C%20Let%C3%ADcia!%20Vim%20pelo%20site%20e%20queria%20saber%20sobre%20os%20atendimentos%20do%20studio." target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.2 14.2c-.2.6-1.2 1.1-1.7 1.2-.5 0-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.5c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.2 1.2 1.1 2.3 1.4 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .8-.4 1.4Z"/></svg></a></div>
       </div>
       <div><h4>Navegação</h4><ul><li><a href="#inicio">Início</a></li><li><a href="#servicos">Atendimentos</a></li><li><a href="#tecnologia">Protocolo</a></li><li><a href="#diferenciais">Diferenciais</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#avaliacoes">Avaliações</a></li><li><a href="#galeria">Galeria</a></li><li><a href="#faq">Dúvidas</a></li><li><a href="#contato">Contato</a></li></ul></div>
-      <div><h4>Atendimentos</h4><ul><li><a href="#servicos">Tratamento personalizado para dor</a></li><li><a href="#servicos">Gestante — cuidado completo</a></li><li><a href="#servicos">Drenagem linfática + manta térmica</a></li><li><a href="#servicos">Ritual Renovação</a></li><li><a href="#servicos">Relaxante + ventosaterapia</a></li></ul></div>
+      <div><h4>Atendimentos</h4><ul><li><a href="#servicos">Protocolo personalizado para dor</a></li><li><a href="#servicos">Gestante — cuidado completo</a></li><li><a href="#servicos">Pós-parto — atendimento em casa</a></li><li><a href="#servicos">Pós-operatório de plástica — em casa</a></li><li><a href="#servicos">Massagem relaxante</a></li></ul></div>
       <div><h4>Contato</h4><ul><li><a href="https://wa.me/5567992042167?text=Ol%C3%A1%2C%20Let%C3%ADcia!%20Vim%20pelo%20site%20e%20queria%20saber%20sobre%20os%20atendimentos%20do%20studio." target="_blank" rel="noopener">(67) 99204-2167</a></li><li><a href="https://maps.app.goo.gl/sUr9jVVcpVp9HItWo" target="_blank" rel="noopener">R. Leonel Alves Correa — Alto, Aquidauana — MS, 79200-000</a></li></ul></div>
     </div>
     <div class="rodape-base">
