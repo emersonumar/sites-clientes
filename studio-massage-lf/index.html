@@ -510,8 +510,11 @@ p { margin: 0; }
 @media (max-width: 720px) {
   .nav, .topo .btn { display: none; }
   .menu-btn, .fechar-btn { display: grid; place-items: center; }
-  .mosaico { grid-template-columns: repeat(6, 1fr); }
-  .mosaico button { grid-column: span 6 !important; aspect-ratio: 4/3 !important; }
+  /* Antes cada foto ocupava as 6 colunas: virava uma embaixo da outra, gigante.
+     Agora a primeira e a capa larga e o resto vira grade de 2, que da pra varrer. */
+  .mosaico { grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .mosaico button { grid-column: span 3 !important; aspect-ratio: 1/1 !important; }
+  .mosaico button:first-child { grid-column: span 6 !important; aspect-ratio: 16/10 !important; }
   .aval-topo { align-items: flex-start; }
 }
 @media (max-width: 520px) {
@@ -868,8 +871,8 @@ Nas 18 avaliações do Google, nota 5, o que mais aparece não é equipamento ne
         <p>Clique nas fotos para ampliar.</p>
       </div>
       <div class="mosaico reveal">
-        <button type="button" aria-label="Ampliar foto 1"><img src="img/gestante.jpg" alt="Studio Letícia Fonseca — foto 1" loading="lazy"></button>
-        <button type="button" aria-label="Ampliar foto 2"><img src="img/sala.jpg" alt="Studio Letícia Fonseca — foto 2" loading="lazy"></button>
+        <button type="button" aria-label="Ampliar foto 1"><img src="img/sala.jpg" alt="Studio Letícia Fonseca — foto 1" loading="lazy"></button>
+        <button type="button" aria-label="Ampliar foto 2"><img src="img/gestante.jpg" alt="Studio Letícia Fonseca — foto 2" loading="lazy"></button>
         <button type="button" aria-label="Ampliar foto 3"><img src="img/kit.jpg" alt="Studio Letícia Fonseca — foto 3" loading="lazy"></button>
         <button type="button" aria-label="Ampliar foto 4"><img src="img/escalda.jpg" alt="Studio Letícia Fonseca — foto 4" loading="lazy"></button>
         <button type="button" aria-label="Ampliar foto 5"><img src="img/joelho.jpg" alt="Studio Letícia Fonseca — foto 5" loading="lazy"></button>
