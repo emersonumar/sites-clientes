@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Nutrição · Campo Grande — leads sem site</title>
+<style>
+  :root {
+    --ground: #f6f7f9;
+    --card: #ffffff;
+    --ink: #12161f;
+    --ink-soft: #5c6675;
+    --line: #e3e7ed;
+    --accent: #2f56d9;
+    --oportuno: #a45c06;
+    --oportuno-bg: #fdf1dd;
+    --social: #0d6f68;
+    --social-bg: #ddf0ee;
+    --mono: ui-monospace, 'Cascadia Mono', 'Consolas', monospace;
+    --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e1218; --card: #161b23; --ink: #e7ebf1; --ink-soft: #929cab;
+      --line: #262e3a; --accent: #7d9bff;
+      --oportuno: #f0b25c; --oportuno-bg: #3a2b12;
+      --social: #5cd0c4; --social-bg: #0f302e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0e1218; --card: #161b23; --ink: #e7ebf1; --ink-soft: #929cab;
+    --line: #262e3a; --accent: #7d9bff;
+    --oportuno: #f0b25c; --oportuno-bg: #3a2b12;
+    --social: #5cd0c4; --social-bg: #0f302e;
+  }
+  :root[data-theme="light"] {
+    --ground: #f6f7f9; --card: #ffffff; --ink: #12161f; --ink-soft: #5c6675;
+    --line: #e3e7ed; --accent: #2f56d9;
+    --oportuno: #a45c06; --oportuno-bg: #fdf1dd;
+    --social: #0d6f68; --social-bg: #ddf0ee;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; letter-spacing: -.02em; margin: 0 0 4px; }
+  .sub { color: var(--ink-soft); margin: 0 0 26px; font-size: .95rem; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 26px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .tile .n { font-family: var(--mono); font-size: 1.9rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.03em; display: block; }
+  .tile .l { font-family: var(--mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); }
+  .tile.op .n { color: var(--oportuno); }
+  .tile.so .n { color: var(--social); }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; }
+  input[type=search], .pitch {
+    font-family: var(--sans); font-size: .92rem; color: var(--ink);
+    background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 9px 13px;
+  }
+  input[type=search] { flex: 1 1 220px; }
+  .filtros { display: flex; gap: 6px; }
+  .filtro {
+    font-family: var(--mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
+    background: var(--card); border: 1px solid var(--line); color: var(--ink-soft);
+    padding: 9px 13px; border-radius: 9px; cursor: pointer;
+  }
+  .filtro[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .pitch { width: 100%; font-size: .88rem; line-height: 1.5; resize: vertical; }
+  .pitch-lbl { font-family: var(--mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); display: block; margin: 16px 0 6px; }
+  .modelos { background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 18px; }
+  .modelos > summary {
+    cursor: pointer; padding: 14px 18px; font-family: var(--mono); font-size: .76rem;
+    text-transform: uppercase; letter-spacing: .07em; color: var(--accent); font-weight: 700;
+  }
+  .modelos-in { padding: 0 18px 18px; }
+  .dica { font-size: .82rem; color: var(--ink-soft); margin: 0 0 6px; }
+  .dica code { background: var(--ground); border: 1px solid var(--line); border-radius: 5px; padding: 1px 5px; font-size: .78rem; }
+
+  .lista { display: flex; flex-direction: column; gap: 8px; }
+  .lead {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; display: grid; gap: 4px 14px;
+    grid-template-columns: 46px 1fr auto;
+    align-items: center;
+  }
+  .rank { font-family: var(--mono); font-size: .9rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; text-align: right; }
+  .nome { font-weight: 650; grid-column: 2; }
+  .meta { grid-column: 2; font-size: .82rem; color: var(--ink-soft); font-family: var(--mono); display: flex; flex-wrap: wrap; gap: 4px 12px; }
+  .meta .aval { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .pill {
+    font-family: var(--mono); font-size: .66rem; text-transform: uppercase; letter-spacing: .07em;
+    padding: 3px 8px; border-radius: 5px; white-space: nowrap; font-weight: 700;
+  }
+  .pill.op { background: var(--oportuno-bg); color: var(--oportuno); }
+  .pill.so { background: var(--social-bg); color: var(--social); }
+  .pill.tp { background: transparent; color: var(--ink-soft); border: 1px solid var(--line); font-weight: 500; }
+  .pill.pronto { background: #16a34a; color: #fff; }
+
+  .acoes a.site { background: #16a34a; border-color: #16a34a; color: #fff; }
+  .acoes a.site:hover { color: #fff; opacity: .9; }
+  .acoes .copiar-link {
+    font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .05em;
+    padding: 8px 11px; border-radius: 8px; border: 1px solid #16a34a; background: transparent;
+    color: #16a34a; cursor: pointer; white-space: nowrap;
+  }
+  .acoes .copiar-link:hover { background: color-mix(in srgb, #16a34a 12%, transparent); }
+  .acoes a.cobrar { border-color: var(--oportuno); color: var(--oportuno); }
+  .acoes a.cobrar:hover { background: var(--oportuno-bg); color: var(--oportuno); }
+  .lead:has(.site) { border-color: color-mix(in srgb, #16a34a 45%, var(--line)); }
+  .acoes { grid-column: 3; grid-row: 1 / span 2; display: flex; gap: 6px; }
+  .acoes a {
+    font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .05em;
+    text-decoration: none; padding: 8px 11px; border-radius: 8px; border: 1px solid var(--line);
+    color: var(--ink-soft); white-space: nowrap;
+  }
+  .acoes a.zap { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .acoes a:hover, .acoes a:focus-visible { border-color: var(--accent); color: var(--accent); }
+  .acoes a.zap:hover, .acoes a.zap:focus-visible { color: #fff; opacity: .9; }
+
+  select.status {
+    font-family: var(--mono); font-size: .7rem; text-transform: uppercase; letter-spacing: .05em;
+    padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink-soft); cursor: pointer;
+  }
+  .lead[data-s="contatado"] { border-color: #6b8cff; }
+  .lead[data-s="retorno"] { border-color: var(--oportuno); }
+  .lead[data-s="fechou"] { border-color: #16a34a; background: color-mix(in srgb, #16a34a 6%, var(--card)); }
+  .lead[data-s="recusou"] { opacity: .5; }
+  .lead[data-s="semresposta"] { border-color: var(--ink-soft); border-style: dashed; }
+  .lead[data-s="semresposta"] select.status { border-color: var(--ink-soft); }
+  /* etiqueta do status no proprio cartao: sem ela so da pra saber lendo o seletor */
+  .pill.st { border: 0; font-weight: 700; letter-spacing: .04em; }
+  .pill.st.contatado { background: #6b8cff; color: #fff; }
+  .pill.st.retorno { background: var(--oportuno); color: #1a1200; }
+  .pill.st.fechou { background: #16a34a; color: #fff; }
+  .pill.st.recusou { background: #b91c1c; color: #fff; }
+  .pill.st.semresposta { background: var(--ink-soft); color: var(--card); }
+  .lead[data-s="contatado"] select.status { border-color: #6b8cff; color: #6b8cff; }
+  .lead[data-s="retorno"] select.status { border-color: var(--oportuno); color: var(--oportuno); }
+  .lead[data-s="fechou"] select.status { border-color: #16a34a; color: #16a34a; font-weight: 700; }
+
+  .barra-eq {
+    display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 18px; margin-bottom: 18px; font-size: .88rem;
+  }
+  .barra-eq .cont { font-family: var(--mono); color: var(--ink-soft); font-size: .8rem; }
+  .barra-eq .sync { font-family: var(--mono); font-size: .72rem; color: var(--social); margin-left: auto; margin-right: 12px; }
+  .barra-eq .cont b { color: var(--ink); }
+  .btn-copiar {
+    font-family: var(--mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .06em;
+    background: var(--accent); color: #fff; border: 0; padding: 10px 16px; border-radius: 9px; cursor: pointer;
+  }
+  .btn-copiar:hover { opacity: .9; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .vazio { text-align: center; color: var(--ink-soft); padding: 40px; font-family: var(--mono); font-size: .85rem; }
+  .rodape { margin-top: 28px; font-size: .8rem; color: var(--ink-soft); font-family: var(--mono); }
+
+  @media (max-width: 620px) {
+    .lead { grid-template-columns: 34px 1fr; padding: 14px 12px; }
+    /* sem quebrar linha, os 6 botoes numa fila so empurravam a pagina pra fora da tela */
+    .acoes { grid-column: 1 / -1; grid-row: auto; margin-top: 10px; flex-wrap: wrap; }
+    .acoes > * { flex: 1 1 auto; text-align: center; }
+    .acoes select.status { flex-basis: 100%; }
+    .meta { font-size: .78rem; }
+  }
+</style>
+
+<div class="wrap">
+  <h1>Nutrição · Campo Grande</h1>
+  <p class="sub">Negócios com avaliações no Google e <strong>sem site próprio</strong> — ordenados por número de avaliações. Quanto mais avaliações, mais prova social já pronta pra virar site.</p>
+
+  <div class="tiles">
+    <div class="tile"><span class="n">73</span><span class="l">leads</span></div>
+    <div class="tile op"><span class="n">45</span><span class="l">sem site nenhum</span></div>
+    <div class="tile so"><span class="n">28</span><span class="l">só rede social</span></div>
+    <div class="tile"><span class="n">1.123</span><span class="l">avaliações somadas</span></div>
+  </div>
+
+  <details class="modelos">
+    <summary>Mensagens prontas — clique para editar</summary>
+    <div class="modelos-in">
+      <p class="dica">O botão <b>WhatsApp</b> de cada lead já abre a conversa com a mensagem certa e preenchida. Trocas automáticas: <code>{NOME}</code> nome do negócio · <code>{AVAL}</code> nº de avaliações · <code>{NOTA}</code> nota · <code>{LINK}</code> link do site · <code>{EU}</code> seu nome.</p>
+
+      <label class="pitch-lbl" for="euNome">Seu nome (assina as mensagens)</label>
+      <input class="pitch" id="euNome" placeholder="Ex.: Dani">
+
+      <label class="pitch-lbl" for="mComSite">1 · Quando o site já está pronto</label>
+      <textarea class="pitch" id="mComSite" rows="7"></textarea>
+
+      <label class="pitch-lbl" for="mSemSite">2 · Quando o site ainda não existe</label>
+      <textarea class="pitch" id="mSemSite" rows="6"></textarea>
+
+      <label class="pitch-lbl" for="mCobranca">3 · Cobrança (2 dias depois)</label>
+      <textarea class="pitch" id="mCobranca" rows="2"></textarea>
+    </div>
+  </details>
+
+  <div class="toolbar">
+    <input type="search" id="busca" placeholder="Buscar por nome ou bairro…" aria-label="Buscar lead">
+    <div class="filtros">
+      <button class="filtro" data-f="todos" aria-pressed="true">Todos</button>
+      <button class="filtro" data-f="SEM SITE" aria-pressed="false">Sem site</button>
+      <button class="filtro" data-f="SÓ REDE SOCIAL" aria-pressed="false">Só rede</button>
+      <button class="filtro" data-f="marcados" aria-pressed="false">Marcados</button>
+    </div>
+    <div class="filtros">
+      <button class="filtro tipo" data-t="todos" aria-pressed="true">Todo tipo</button>
+      <button class="filtro tipo" data-t="clínica" aria-pressed="false">Clínicas</button>
+      <button class="filtro tipo" data-t="salão" aria-pressed="false">Salões</button>
+    </div>
+  </div>
+
+  <div class="barra-eq">
+    <span class="cont" id="contador">nenhum lead marcado ainda</span>
+    <span class="sync" id="sync">carregando o que a equipe já marcou…</span>
+    <button class="btn-copiar" id="copiar">Copiar resumo</button>
+  </div>
+
+  <div class="lista" id="lista"></div>
+  <p class="rodape">Fonte: Google Places API · mapeado em 30/07/2026 · nutricionista-campo-grande.json</p>
+</div>
+
+<script>
+const LEADS = [{"tipo":"clínica","nome":"Nutricionista Emerson Duarte","aval":96,"nota":"5,0","situacao":"SEM SITE","fone":"67992880357","fone_fmt":"(67) 99288-0357","end":"R. Raul Píres Barbosa, 989 - Chácara Cachoeira","site":"","maps":"https://maps.google.com/?cid=10135664935855325538&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJxT9eTYrphpQRYgEK4I4dqYw","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-emerson-duarte/"},{"tipo":"clínica","nome":"Nutricionista Lucas Arcanjo","aval":65,"nota":"5,0","situacao":"SEM SITE","fone":"67992952058","fone_fmt":"(67) 99295-2058","end":"R. Franklin Roosevelt, 61 - Centro","site":"","maps":"https://maps.google.com/?cid=2781733271184747524&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJxVCXiY_phpQRBCzaAKyzmiY","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-lucas-arcanjo/"},{"tipo":"clínica","nome":"Nutricionista Priscila Bueno","aval":59,"nota":"4,9","situacao":"SÓ REDE SOCIAL","fone":"67996658617","fone_fmt":"(67) 99665-8617","end":"Rua Coronel - R. Sebastião Lima - Jardim Monte Libano","site":"https://www.instagram.com/nutripriscilabueno/","maps":"https://maps.google.com/?cid=8052696709090907168&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ8az5QrLphpQRIBRS7f3swG8","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-priscila-bueno/"},{"tipo":"clínica","nome":"Nutricionista | Ana Paula Martone | Nutricionista Esportiva | Campo Gr","aval":58,"nota":"5,0","situacao":"SEM SITE","fone":"67992359992","fone_fmt":"(67) 99235-9992","end":"My job - R. das Garças, 1140 - Centro","site":"","maps":"https://maps.google.com/?cid=16570273716879711655&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvYPDy1nphpQRp12bBSdw9eU","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-ana-paula/"},{"tipo":"clínica","nome":"Nutricionista Beatriz Camargo","aval":56,"nota":"5,0","situacao":"SEM SITE","fone":"67996521929","fone_fmt":"(67) 99652-1929","end":"R. Padre João Crippa, 2441 - São Francisco","site":"","maps":"https://maps.google.com/?cid=2525905118774835360&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJZ22MPKjohpQRoDjqnFLRDSM","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-beatriz-camargo/"},{"tipo":"clínica","nome":"Isabella Pereira Nutricionista Infantil - Seletividade Alimentar, Intr","aval":50,"nota":"5,0","situacao":"SEM SITE","fone":"67992151938","fone_fmt":"(67) 99215-1938","end":"Rua Hermelita de Oliveira Gomes, 292 - Santa Fe","site":"","maps":"https://maps.google.com/?cid=537362068826923800&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJmULQSofphpQRGKMyXPQXdQc","site_pronto":"https://emersonumar.github.io/sites-clientes/isabella-pereira-nutricionista/"},{"tipo":"clínica","nome":"Nutricionista Ana Clara Camargo","aval":48,"nota":"5,0","situacao":"SEM SITE","fone":"67999629761","fone_fmt":"(67) 99962-9761","end":"R. Pedro Celestino, 3607 - Centro","site":"","maps":"https://maps.google.com/?cid=18146100900370505489&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ8WfuNADphpQREd_6cKDm0_s","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-ana-clara/"},{"tipo":"outro","nome":"Adayana Matos","aval":37,"nota":"5,0","situacao":"SEM SITE","fone":"67991157493","fone_fmt":"(67) 99115-7493","end":"Av. Alvorada, 49 - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=2247890972284754367&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJB_IxVs7nhpQRvxnX8O0cMh8","site_pronto":"https://emersonumar.github.io/sites-clientes/adayana-matos/"},{"tipo":"clínica","nome":"Pâmela Souza - Nutricionista / Dieta flexível (Bariátrica, doenças crô","aval":36,"nota":"4,8","situacao":"SEM SITE","fone":"67992225892","fone_fmt":"(67) 99222-5892","end":"R. José Antônio, 1672 - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=7009950840754068740&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvXCutzDphpQRBN0YPCZZSGE","site_pronto":"https://emersonumar.github.io/sites-clientes/pamela-souza-nutricionista/"},{"tipo":"clínica","nome":"Karla Rodrigues - Nutricionista em Campo Grande","aval":34,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67998278832","fone_fmt":"(67) 99827-8832","end":"Instituto Simbios - Av. Mato Grosso, 759 - Centro","site":"https://beacons.ai/karlarodriguesnutri","maps":"https://maps.google.com/?cid=9757663393273509833&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJKQzTGIjnhpQRyXfmaSgvaoc","site_pronto":"https://emersonumar.github.io/sites-clientes/karla-rodrigues-nutricionista/"},{"tipo":"clínica","nome":"Gabriela Nogueira - Nutricionista em Campo Grande","aval":31,"nota":"5,0","situacao":"SEM SITE","fone":"67984321056","fone_fmt":"(67) 98432-1056","end":"R. Pedro Celestino, 3607 - Centro","site":"","maps":"https://maps.google.com/?cid=118282458358998207&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJhTIa5UznhpQRv-Sl6UQ5pAE","site_pronto":"https://emersonumar.github.io/sites-clientes/gabriela-nogueira-nutricionista/"},{"tipo":"outro","nome":"Studio Impacto Campo Grande MS","aval":28,"nota":"4,9","situacao":"SEM SITE","fone":"67981514219","fone_fmt":"(67) 98151-4219","end":"R. Rui Barbosa, 1755 - Centro","site":"","maps":"https://maps.google.com/?cid=11055085184868386634&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJyW0jNxzmhpQRSofDPWeNa5k","site_pronto":"https://emersonumar.github.io/sites-clientes/studio-impacto-campo/"},{"tipo":"clínica","nome":"Nutricionista Laryssa Martins","aval":27,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67999491635","fone_fmt":"(67) 99949-1635","end":"R. João Akamine, 103 - Santa Fe","site":"https://www.instagram.com/laryssa_nutricionista/","maps":"https://maps.google.com/?cid=7488086866839907272&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJF9mFEN3phpQRyKtC8VQH62c","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-laryssa-martins/"},{"tipo":"clínica","nome":"Dr. Leonardo Aydos - Nutricionista em Campo Grande MS","aval":26,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67999861502","fone_fmt":"(67) 99986-1502","end":"Av. Afonso Pena, 4785 - Santa Fe","site":"https://www.instagram.com/nutricionistaleonardo","maps":"https://maps.google.com/?cid=15492723099786396625&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvdQOvFXphpQR0cNBRpM1Adc","site_pronto":"https://emersonumar.github.io/sites-clientes/dr-leonardo-aydos/"},{"tipo":"clínica","nome":"Nutricionista Aline Macedo","aval":24,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67992957812","fone_fmt":"(67) 99295-7812","end":"R. das Garças, 1641 - Centro","site":"https://www.instagram.com/nutrialinemacedo/","maps":"https://maps.google.com/?cid=463273573758634397&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJO1AQhr_ohpQRnYm1XdzgbQY","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-aline-macedo/"},{"tipo":"clínica","nome":"Nutricionista e Acupunturista Tatiana Sarmento","aval":24,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67992041666","fone_fmt":"(67) 99204-1666","end":"Clínica Habilis - R. São Vicente de Paulo, 135 - Vila Manoel da Costa Lima","site":"https://beacons.ai/tatianasarmento","maps":"https://maps.google.com/?cid=7735367528949539536&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJYaFdt6_ohpQR0OIgqsiLWWs","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-e-acupunturista/"},{"tipo":"clínica","nome":"Graciane Morales - Nutricionista - Emagrecimento - Esportiva - Da Fert","aval":21,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67999120311","fone_fmt":"(67) 99912-0311","end":"Av. Afonso Pena, 4496 - Jardim dos Estados","site":"https://www.instagram.com/gramoralesnutri/","maps":"https://maps.google.com/?cid=761392646239524014&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJYSHH-r3ohpQRrpSz5ZMCkQo","site_pronto":"https://emersonumar.github.io/sites-clientes/graciane-morales-nutricionista/"},{"tipo":"clínica","nome":"Nutricionista Jessica Barbosa","aval":21,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67991309659","fone_fmt":"(67) 99130-9659","end":"R. Pedro Coutinho, 211 - Jardim dos Estados","site":"https://wa.me/5567991309659?text=Oi,%20vim%20pelo%20Google%20e%20quero%20emagrecer%20com%20uma%20dieta%20pr%C3%A1tica%20e%20sem%20frescura.%20Pode%20me%20explicar%20como%20funciona?","maps":"https://maps.google.com/?cid=7529251781065851357&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJtaBcWfzphpQR3UHoappGfWg","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-jessica-barbosa/"},{"tipo":"clínica","nome":"Nutricionista Esportiva Giselly Arandia","aval":20,"nota":"5,0","situacao":"SEM SITE","fone":"67982175984","fone_fmt":"(67) 98217-5984","end":"Uniclínicas - Av. Fernando Corrêa da Costa, 1233 - Vila Carvalho","site":"","maps":"https://maps.google.com/?cid=1123928381102843796&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ53UqKJPnhpQRlGedZOj-mA8","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-esportiva-giselly/"},{"tipo":"clínica","nome":"Nutricionista Marcella Veronezzi","aval":18,"nota":"5,0","situacao":"SEM SITE","fone":"67996001809","fone_fmt":"(67) 99600-1809","end":"R. Manoel Inácio de Souza, 360 - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=3827455314959215051&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJe8a9FQ_nhpQRyynTiVTaHTU","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-marcella-veronezzi/"},{"tipo":"clínica","nome":"Fernanda Abuhassan Nutrição | Campo Grande MS","aval":18,"nota":"5,0","situacao":"SEM SITE","fone":"6730440404","fone_fmt":"(67) 3044-0404","end":"R. Piratininga, 1039 - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=6416162626016550088&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJIcbDLSzphpQRyJzaAOrJClk","site_pronto":"https://emersonumar.github.io/sites-clientes/fernanda-abuhassan-nutricao/"},{"tipo":"clínica","nome":"Daiana Angelo Nutricionista Clínica","aval":16,"nota":"4,0","situacao":"SÓ REDE SOCIAL","fone":"67991063333","fone_fmt":"(67) 99106-3333","end":"R. Própria, 44 - Jardim dos Estados","site":"https://www.instagram.com/nutridaianaangelo/","maps":"https://maps.google.com/?cid=11325243775805381448&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJsbdeQIjphpQRSFuV2zVZK50","site_pronto":"https://emersonumar.github.io/sites-clientes/daiana-angelo-nutricionista/"},{"tipo":"clínica","nome":"Dra. Paula Saldanha Tschinkel - Nutricionista","aval":15,"nota":"5,0","situacao":"SEM SITE","fone":"67992170859","fone_fmt":"(67) 99217-0859","end":"Edifício Mont Blanc - R. 15 de Novembro, 310 - Sl 204 - Centro","site":"","maps":"https://maps.google.com/?cid=13183228056547525500&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJX7yNugrnhpQRfIN61xE89LY","site_pronto":"https://emersonumar.github.io/sites-clientes/dra-paula-saldanha/"},{"tipo":"clínica","nome":"Nutricionista Pedro Hernandes | Emagrecimento e Nutrição Esportiva","aval":14,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67993169796","fone_fmt":"(67) 99316-9796","end":"R. Uricuri, 487 - Vila Olinda","site":"https://www.instagram.com/nutri.pedrohernandes/","maps":"https://maps.google.com/?cid=7652496511803153208&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJz9MhW2HvhpQROFvxZgghM2o","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-pedro-hernandes/"},{"tipo":"clínica","nome":"Fernanda Perez - Nutricionista em Campo Grande-MS","aval":13,"nota":"5,0","situacao":"SEM SITE","fone":"67982029999","fone_fmt":"(67) 98202-9999","end":"Edifício Evolution - Av. Afonso Pena, 5723 - Sl 902 - Chácara Cachoeira","site":"","maps":"https://maps.google.com/?cid=9248186692419714043&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvS7OLtHphpQR-_srOswoWIA","site_pronto":"https://emersonumar.github.io/sites-clientes/fernanda-perez-nutricionista/"},{"tipo":"clínica","nome":"Nutricionista Alana Cordeiro Porto","aval":13,"nota":"5,0","situacao":"SEM SITE","fone":"67991233969","fone_fmt":"(67) 99123-3969","end":"R. Couto de Magalhães, 10 - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=161047698688941601&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJEw7A6rLphpQRIZ4_WAcoPAI","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-alana-cordeiro/"},{"tipo":"clínica","nome":"Dylan Ayala Nutrição Esportiva e Clínica - Campo Grande","aval":13,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67992773040","fone_fmt":"(67) 99277-3040","end":"R. Rui Barbosa, 1320 - Sl 12 - Jardim Monte Libano","site":"https://linktr.ee/DylanAyala","maps":"https://maps.google.com/?cid=6660355600115438036&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvd0uaxPvhpQR1BGqViFWblw","site_pronto":"https://emersonumar.github.io/sites-clientes/dylan-ayala-nutricao/"},{"tipo":"clínica","nome":"SAVIESA - Instituto de Medicina Avançada","aval":13,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"6725250009","fone_fmt":"(67) 2525-0009","end":"R. Dr. Antônio Alves Arantes, 414 - Chácara Cachoeira","site":"https://www.instagram.com/saviesainstituto/","maps":"https://maps.google.com/?cid=7227079488912466652&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJv902lEDphpQR3KIjJIG-S2Q","site_pronto":"https://emersonumar.github.io/sites-clientes/saviesa-instituto-de/"},{"tipo":"clínica","nome":"Nayara Trevellin - Nutricionista em Campo Grande: emagrecimento, hiper","aval":11,"nota":"4,6","situacao":"SEM SITE","fone":"67999712088","fone_fmt":"(67) 99971-2088","end":"R. Antônio Maria Coelho, 1715 Sala 2 (Fundo - Centro","site":"","maps":"https://maps.google.com/?cid=14328269997877992926&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJxVeUzXjnhpQR3p1nDaY92MY","site_pronto":"https://emersonumar.github.io/sites-clientes/nayara-trevellin-nutricionista/"},{"tipo":"clínica","nome":"Andrieli Souza Borges - Nutricionista","aval":11,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67984447069","fone_fmt":"(67) 98444-7069","end":"R. Jeribá, 743 - Chácara Cachoeira","site":"https://www.instagram.com/andrielisouzaborges?igsh=Y2Yya3VwcHdyam0x&utm_source=qr","maps":"https://maps.google.com/?cid=1934207390085814962&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvy_s_2TlhpQRshoAmF-v1xo","site_pronto":"https://emersonumar.github.io/sites-clientes/andrieli-souza-borges/"},{"tipo":"clínica","nome":"Nutricionista Amanda Carretoni","aval":11,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67999046434","fone_fmt":"(67) 99904-6434","end":"R. Cel. Cacildo Arantes, 855 - Chácara Cachoeira","site":"https://beacons.ai/amandacarretoni","maps":"https://maps.google.com/?cid=3673257331990163313&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJversqb7phpQRcW_f6RQI-jI","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-amanda-carretoni/"},{"tipo":"outro","nome":"Fabiana Dias Watanabe","aval":10,"nota":"5,0","situacao":"SEM SITE","fone":"67999748444","fone_fmt":"(67) 99974-8444","end":"R. Rui Barbosa, 1755 - Vila Gloria","site":"","maps":"https://maps.google.com/?cid=12999354764858196836&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJl2o9NxzmhpQRZIOn_Ej8ZrQ","site_pronto":"https://emersonumar.github.io/sites-clientes/fabiana-dias-watanabe/"},{"tipo":"clínica","nome":"Thais Batista Nutricionista","aval":10,"nota":"5,0","situacao":"SEM SITE","fone":"67981389127","fone_fmt":"(67) 98138-9127","end":"R. Dr. Arthur Jorge, 2682 - São Francisco","site":"","maps":"https://maps.google.com/?cid=6797593077065534691&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJP5rlR87phpQR40wlbuPmVV4","site_pronto":"https://emersonumar.github.io/sites-clientes/thais-batista-nutricionista/"},{"tipo":"clínica","nome":"Cristiane Alves Nutricionista Oncológica e Clínica","aval":10,"nota":"5,0","situacao":"SEM SITE","fone":"67981540337","fone_fmt":"(67) 98154-0337","end":"R. Dr. Zerbini, 505 - Chácara Cachoeira","site":"","maps":"https://maps.google.com/?cid=2653358167583386774&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJjzuC_rTphpQRlmywADKf0iQ","site_pronto":"https://emersonumar.github.io/sites-clientes/cristiane-alves-nutricionista/"},{"tipo":"clínica","nome":"Nutricionista Larissa Souza","aval":9,"nota":"5,0","situacao":"SEM SITE","fone":"67991576832","fone_fmt":"(67) 99157-6832","end":"R. Antônio Maria Coelho, 1715 - Centro","site":"","maps":"https://maps.google.com/?cid=8744605062840990750&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ0aeJzy3nhpQRHjy4R_kTW3k","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-larissa-souza/"},{"tipo":"clínica","nome":"Tânia Marquez - Nutrição e Psicologia","aval":9,"nota":"5,0","situacao":"SEM SITE","fone":"67993239685","fone_fmt":"(67) 99323-9685","end":"Av. Mato Grosso, 745 - Sl 07 2º Andar - Centro","site":"","maps":"https://maps.google.com/?cid=17803132776459897993&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJIUf6kjnnhpQRiYwBZu9uEfc","site_pronto":"https://emersonumar.github.io/sites-clientes/tania-marquez-nutricao/"},{"tipo":"clínica","nome":"Nutricionista Gaby Escobar","aval":9,"nota":"5,0","situacao":"SEM SITE","fone":"67998585827","fone_fmt":"(67) 99858-5827","end":"R. Érico de Oliveira Passos, 33 - Chácara Cachoeira","site":"","maps":"https://maps.google.com/?cid=16329454620913408036&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJXXGxptTphpQRJJhn53XgneI","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-gaby-escobar/"},{"tipo":"clínica","nome":"Glauciane Norte-Nutricionista-Campo Grande-MS-Emagrecimento-e-Nutrição","aval":8,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67991055166","fone_fmt":"(67) 99105-5166","end":"Av. América, 157 - Vila Planalto","site":"https://instagram.com/nutriglaucianenorte?igshid=NGVhN2U2NjQ0Yg==","maps":"https://maps.google.com/?cid=13973684047826244008&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ77zrT_7nhpQRqNE5Ept_7ME","site_pronto":"https://emersonumar.github.io/sites-clientes/glauciane-norte-nutricionista/"},{"tipo":"clínica","nome":"Nutricionista | Dra. Priscilla Klausing","aval":8,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67991311001","fone_fmt":"(67) 99131-1001","end":"R. Querubina García Nogueira, 298 - Universitário","site":"https://www.instagram.com/nutripriscillaklausing/","maps":"https://maps.google.com/?cid=1859676869605176213&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJa98nuSrvhpQRlbPTiULmzhk","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-dra-priscilla/"},{"tipo":"clínica","nome":"Nutricionista Esportiva Rebeca Valdes","aval":8,"nota":"5,0","situacao":"SEM SITE","fone":"67992173753","fone_fmt":"(67) 99217-3753","end":"R. Dr. Arthur Jorge, 738 - Centro","site":"","maps":"https://maps.google.com/?cid=10154268918534085067&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJJ9PWNXfphpQRy5kDI8g164w","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-esportiva-rebeca/"},{"tipo":"clínica","nome":"Instituto LCM - Nutrição e Estética Integrativa - Nutricionista Integr","aval":8,"nota":"4,9","situacao":"SEM SITE","fone":"67996804857","fone_fmt":"(67) 99680-4857","end":"Av. Afonso Pena, 4785 - Sl nº 103 - Santa Fe","site":"","maps":"https://maps.google.com/?cid=392850007034486337&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJMy2YIoTphpQRQd5M__-ucwU","site_pronto":""},{"tipo":"clínica","nome":"Elizabeth Pinheiro Nutricionista e Personal Diet","aval":7,"nota":"5,0","situacao":"SEM SITE","fone":"6730294725","fone_fmt":"(67) 3029-4725","end":"R. Manoel Inácio de Souza, 2153 - Centro","site":"","maps":"https://maps.google.com/?cid=2799695421620305218&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJAxsRp57ohpQRQj33DCeE2iY","site_pronto":""},{"tipo":"clínica","nome":"Priscila Maran Nutricionista | Emagrecimento e Performance em Campo Gr","aval":6,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67992051922","fone_fmt":"(67) 99205-1922","end":"R. Pedro Celestino, 3607 - Monte Castelo","site":"https://wa.me/5567992051922?text=Ol%C3%A1%2C%20vi%20seu%20an%C3%BAncio%20no%20Google%20e%20tenho%20interesse%20em%20iniciar%20um%20acompanhamento%20nutricional.%20Gostaria%20de%20agendar%20uma%20consulta%20e%20entender%20melhor%20como%20funciona%20o%20atendimento.","maps":"https://maps.google.com/?cid=18187556122357347489&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ9xGJTZznhpQRoTSXde4tZ_w","site_pronto":"https://emersonumar.github.io/sites-clientes/priscila-maran-nutricionista/"},{"tipo":"clínica","nome":"Nutricionista Lariane Moreira","aval":6,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67996447984","fone_fmt":"(67) 99644-7984","end":"R. Antônio Maria Coelho, 1715 - Centro","site":"https://www.instagram.com/lariane_m_nutricionista/","maps":"https://maps.google.com/?cid=10827494067238755913&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvWSL_m3nhpQRSV5q1Xz8QpY","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-lariane-moreira/"},{"tipo":"clínica","nome":"Daniele Neves - Nutricionista Funcional e Esportiva","aval":6,"nota":"5,0","situacao":"SEM SITE","fone":"67991063333","fone_fmt":"(67) 99106-3333","end":"R. Própria, 44 - Centro","site":"","maps":"https://maps.google.com/?cid=15470651183407115259&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJQ-bdMiHphpQR-yv1xkjLstY","site_pronto":"https://emersonumar.github.io/sites-clientes/daniele-neves-nutricionista/"},{"tipo":"clínica","nome":"Buainain Medicina e Nutrição","aval":6,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"6730440404","fone_fmt":"(67) 3044-0404","end":"R. Piratininga, 1039 - Jardim dos Estados","site":"https://www.instagram.com/clinicabuainain/","maps":"https://maps.google.com/?cid=13688016704700223513&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJm1Ju0EvphpQRGRBFs6ua9b0","site_pronto":"https://emersonumar.github.io/sites-clientes/buainain-medicina-e/"},{"tipo":"clínica","nome":"Consultório de Nutrição Dra. Ritiele oliveira","aval":6,"nota":"5,0","situacao":"SEM SITE","fone":"67981827306","fone_fmt":"(67) 98182-7306","end":"Av. José Nogueira Viêira - Tiradentes","site":"","maps":"https://maps.google.com/?cid=13218560159075821175&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJRV6v7abvhpQRd2bYA27Ccbc","site_pronto":""},{"tipo":"clínica","nome":"Nutricionista Cristina Yamashita","aval":5,"nota":"4,8","situacao":"SEM SITE","fone":"67999459471","fone_fmt":"(67) 99945-9471","end":"R. Teotônio Rosa Píres, 213 - Vila Rosa Pires","site":"","maps":"https://maps.google.com/?cid=8620240766453545853&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJBycHmcLnhpQRffvNGk4_oXc","site_pronto":"https://emersonumar.github.io/sites-clientes/nutri-cristina/"},{"tipo":"clínica","nome":"Nutricionista Dulciély Indalécio","aval":5,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67993307080","fone_fmt":"(67) 99330-7080","end":"R. Gen. Odorico Quadros, 224 - sala 06 - Jardim dos Estados","site":"https://www.instagram.com/nutridulcielyindalecio/","maps":"https://maps.google.com/?cid=6594426979295733770&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJa7DpiPfphpQRCqgsHmYchFs","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-dulciely-indalecio/"},{"tipo":"clínica","nome":"Clínica Frequência da Vida","aval":5,"nota":"4,8","situacao":"SEM SITE","fone":"67996131837","fone_fmt":"(67) 99613-1837","end":"R. João Pedro de Souza, 1239 - Jardim Monte Libano","site":"","maps":"https://maps.google.com/?cid=12435135399359784950&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ4yJ6I8zphpQR9qe59MJ5kqw","site_pronto":"https://emersonumar.github.io/sites-clientes/clinica-frequencia-da/"},{"tipo":"clínica","nome":"Nutricionista Daniela Krüger","aval":5,"nota":"5,0","situacao":"SEM SITE","fone":"67999605494","fone_fmt":"(67) 99960-5494","end":"Av. Afonso Pena, 4496 - sala 101 - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=14688435089035621416&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJBa6Jbd7phpQRKPRZDOTN18s","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-daniela-kruger/"},{"tipo":"clínica","nome":"Nutricionista João Santos","aval":4,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67981888612","fone_fmt":"(67) 98188-8612","end":"R. Pedro Celestino, 3607 - Sl 1203 - Centro","site":"http://instagram.com/_ojoaosanntos","maps":"https://maps.google.com/?cid=13866252314598111700&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJKy8wwaPphpQR1PmOeQPTbsA","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-joao-santos/"},{"tipo":"clínica","nome":"Carolina Garcia Martins | Nutricionista - Emagrecimento","aval":4,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67992967777","fone_fmt":"(67) 99296-7777","end":"R. Vinte e Cinco de Dezembro, 768 - Jardim dos Estados","site":"https://wa.me/5567992967777","maps":"https://maps.google.com/?cid=16173060714862863426&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ6TcA9HfphpQRQuQ5GAhBcuA","site_pronto":"https://emersonumar.github.io/sites-clientes/carolina-garcia-martins/"},{"tipo":"clínica","nome":"Nutricionista Adriana Furquim - Emagrecimento | Saúde da mulher | Peri","aval":4,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67999543597","fone_fmt":"(67) 99954-3597","end":"R. Manoel Inácio de Souza, 37 - Jardim dos Estados","site":"http://www.instagram.com/nutri_adrianafurquim","maps":"https://maps.google.com/?cid=11930381647693854151&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ4_j1ZsfphpQRx7WhEeY6kaU","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-adriana-furquim/"},{"tipo":"outro","nome":"Aline Baldan","aval":4,"nota":"5,0","situacao":"SEM SITE","fone":"67992473232","fone_fmt":"(67) 99247-3232","end":"R. Rio Grande do Sul, 1278 - Centro","site":"","maps":"https://maps.google.com/?cid=15683851868755565848&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJBblg4UXphpQRGJ0Fky08qNk","site_pronto":"https://emersonumar.github.io/sites-clientes/aline-baldan/"},{"tipo":"clínica","nome":"Ismaell Avelino - Nutrição para Idosos","aval":3,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67993096693","fone_fmt":"(67) 99309-6693","end":"Av. Mato Grosso, 745 - Centro","site":"https://www.instagram.com/ismaellnutri/","maps":"https://maps.google.com/?cid=8058630032907857878&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJwZ_qNH_phpQR1m_Eh1EB1m8","site_pronto":""},{"tipo":"clínica","nome":"Nutricionista Robertha Franco","aval":3,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67992172337","fone_fmt":"(67) 99217-2337","end":"R. Mal. Rondon, 2560 - Centro","site":"https://www.instagram.com/roberthafranconutri/","maps":"https://maps.google.com/?cid=17842396467525742261&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ1d32eHXphpQRtW6O3A3tnPc","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-robertha-franco/"},{"tipo":"clínica","nome":"Simony de Oliveira | Nutricionista em Campo Grande","aval":3,"nota":"5,0","situacao":"SEM SITE","fone":"67992866577","fone_fmt":"(67) 99286-6577","end":"R. Pedro Celestino, 3607 - Centro","site":"","maps":"https://maps.google.com/?cid=16521701178703420179&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJrXp8Z8bnhpQRExvFsa_fSOU","site_pronto":"https://emersonumar.github.io/sites-clientes/simony-de-oliveira/"},{"tipo":"clínica","nome":"Nutricionista Mayra Vieira | Bariátrica","aval":3,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67982065544","fone_fmt":"(67) 98206-5544","end":"R. Sergipe, 719 - Jardim dos Estados","site":"https://l.instagram.com/?u=https%3A%2F%2Fnutribariatrica.my.canva.site%2F&e=AT0Q7N1nUT3HGy7SJYEDetPqVxlawp4IEmxyUMPm1KnvqljadttjxwkDDU5qIIY8L3JM68YnzGP_MRtlXHY8dZHbMk2Po7tsXeckOkfji40UTW4B3eVewYg","maps":"https://maps.google.com/?cid=2667791235938008556&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJO-RT8RTnhpQR7D38mP7lBSU","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-mayra-vieira/"},{"tipo":"clínica","nome":"Nutricionista Cassiano Fontoura","aval":3,"nota":"5,0","situacao":"SEM SITE","fone":"67992676454","fone_fmt":"(67) 99267-6454","end":"Edifício Class Tower - Av. Afonso Pena, 4496 - Sl 602 - Vila Gomes","site":"","maps":"https://maps.google.com/?cid=1038597739076073553&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJTdluw43phpQRUTgnFiTXaQ4","site_pronto":""},{"tipo":"clínica","nome":"Nutricionista Bruna Domingues","aval":2,"nota":"5,0","situacao":"SEM SITE","fone":"67998729007","fone_fmt":"(67) 99872-9007","end":"R. Couto de Magalhães, 10 - Centro","site":"","maps":"https://maps.google.com/?cid=5708417915670139677&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJvR9uOeDphpQRHZP-jNlfOE8","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-bruna-domingues/"},{"tipo":"clínica","nome":"Nutricionista Gabriel Paniago","aval":2,"nota":"5,0","situacao":"SEM SITE","fone":"67992117248","fone_fmt":"(67) 99211-7248","end":"R. Couto de Magalhães, 50a - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=6633422456691411384&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJAdx0UrDphpQRuMkwOJSmDlw","site_pronto":""},{"tipo":"clínica","nome":"Nutricionista Luana Leite","aval":2,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67992822807","fone_fmt":"(67) 99282-2807","end":"R. Marquês de Pombal, 480 - Jardim Sao Lourenco","site":"https://www.facebook.com/luanaleitenutricionista/","maps":"https://maps.google.com/?cid=15511762690770414716&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJV8O8N8nohpQRfCyHf_vZRNc","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-luana-leite/"},{"tipo":"clínica","nome":"Nutricionista Dr. Gabriel Alves Penkal","aval":2,"nota":"5,0","situacao":"SEM SITE","fone":"67992509396","fone_fmt":"(67) 99250-9396","end":"Rua Hermelita de Oliveira Gomes, 292 - Santa Fe","site":"","maps":"https://maps.google.com/?cid=13823418397932386661&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJGdQadLHphpQRZflbFsul1r8","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-dr-gabriel/"},{"tipo":"clínica","nome":"Stephannie Torres Nutricionista","aval":2,"nota":"5,0","situacao":"SÓ REDE SOCIAL","fone":"67998582375","fone_fmt":"(67) 99858-2375","end":"Rua Hermelita de Oliveira Gomes, 292 - Sl 6 - Santa Fe","site":"https://www.instagram.com/stephannie.nutri/","maps":"https://maps.google.com/?cid=8890442759052705505&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJPd3dsVLnhpQR4b5H9ZUyYXs","site_pronto":"https://emersonumar.github.io/sites-clientes/stephannie-torres-nutricionista/"},{"tipo":"clínica","nome":"Grazieli Siglinski, Nutricionista","aval":2,"nota":"5,0","situacao":"SEM SITE","fone":"67981607934","fone_fmt":"(67) 98160-7934","end":"R. Dr. Osvaldo Arantes Filho, 987 - Chácara Cachoeira","site":"","maps":"https://maps.google.com/?cid=9088839519102610719&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJPzUD_eXphpQRH62kTGMLIn4","site_pronto":"https://emersonumar.github.io/sites-clientes/grazieli-siglinski-nutricionista/"},{"tipo":"clínica","nome":"Rosilene Alves - Nutricionista","aval":1,"nota":"5,0","situacao":"SEM SITE","fone":"67999773045","fone_fmt":"(67) 99977-3045","end":"R. das Garças, 81 - Centro","site":"","maps":"https://maps.google.com/?cid=13162072822818503036&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJZdDr0EvnhpQRfHnrJ38TqbY","site_pronto":"https://emersonumar.github.io/sites-clientes/rosilene-alves-nutricionista/"},{"tipo":"clínica","nome":"Dra Francisca Bigaton - Nutricionista","aval":1,"nota":"5,0","situacao":"SEM SITE","fone":"67996147292","fone_fmt":"(67) 99614-7292","end":"Av. Rodolfo José Pinho, 457 - Sala 3 - Itanhangá Park","site":"","maps":"https://maps.google.com/?cid=17872147907173838051&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJg9QiAMHohpQR42xWtNSfBvg","site_pronto":"https://emersonumar.github.io/sites-clientes/dra-francisca-bigaton/"},{"tipo":"clínica","nome":"Vanessa Nunes- Nutricionista- Atendimento no Autismo, TDHA, Seletivida","aval":1,"nota":"5,0","situacao":"SEM SITE","fone":"67998037037","fone_fmt":"(67) 99803-7037","end":"R. Raposo Taváres, 199 - Jardim Paulista","site":"","maps":"https://maps.google.com/?cid=3412179830622603574&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJt1PuQDOMuWQRNkkDOnp_Wi8","site_pronto":"https://emersonumar.github.io/sites-clientes/vanessa-nunes-nutricionista/"},{"tipo":"outro","nome":"Mariana Corradi","aval":1,"nota":"5,0","situacao":"SEM SITE","fone":"6733264200","fone_fmt":"(67) 3326-4200","end":"R. Alagoas, 700 - Sl 4 - Jardim dos Estados","site":"","maps":"https://maps.google.com/?cid=16117617582887220156&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJdWDjAZHohpQRvDOV_ctHrd8","site_pronto":"https://emersonumar.github.io/sites-clientes/mariana-corradi/"},{"tipo":"outro","nome":"Fabiana Barbosa Carminati","aval":1,"nota":"5,0","situacao":"SEM SITE","fone":"67992158217","fone_fmt":"(67) 99215-8217","end":"R. Dr. Eduardo Machado Metelo, Metello, 46 - Chácara Cachoeira","site":"","maps":"https://maps.google.com/?cid=8362928634229864818&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ7Qeb7CPphpQRcrk2vUgXD3Q","site_pronto":"https://emersonumar.github.io/sites-clientes/fabiana-barbosa-carminati/"},{"tipo":"clínica","nome":"Nutricionista Mariana De Capitani","aval":1,"nota":"5,0","situacao":"SEM SITE","fone":"6733050500","fone_fmt":"(67) 3305-0500","end":"Edifício Evolution - Av. Afonso Pena, 5723 - sala 1301 - Chácara Cachoeira","site":"","maps":"https://maps.google.com/?cid=17063584568685491400&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJ___v-8HohpQRyPRVK8IHzuw","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-mariana-de/"},{"tipo":"clínica","nome":"Nutricionista Dra Simone Caccia","aval":1,"nota":"5,0","situacao":"SEM SITE","fone":"67992921204","fone_fmt":"(67) 99292-1204","end":"R. Resedá, 102 - Cidade Jardim","site":"","maps":"https://maps.google.com/?cid=2782186581766359646&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA","id":"ChIJj-6o2ifphpQRXsoKmfRPnCY","site_pronto":"https://emersonumar.github.io/sites-clientes/nutricionista-dra-simone/"}];
+const lista = document.getElementById('lista');
+const busca = document.getElementById('busca');
+let filtro = 'todos', filtroTipo = 'todos';
+
+// modelos de mensagem — editáveis na tela e salvos no navegador de quem liga
+const PADRAO = {"comSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google{ELOGIO}. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um pra vocês e já deixei no ar:\n{LINK}\n\nDá uma olhada, sem compromisso.","semSite":"Olá, tudo bem? Aqui é {EU}, da Growth Digital.\n\nVi que a {NOME} tem {AVAL} avaliações com nota {NOTA} no Google{ELOGIO}. Mas reparei que vocês ainda não têm um site próprio.\n\nMontei um modelo pra mostrar como ficaria. Posso te mandar o link?","cobranca":"Oi! Passando só pra saber se você chegou a ver o site da {NOME} que mandei :)"};
+const VERSAO = "91caedca";
+const CHAVE_MSG = 'msg-' + document.title;
+const campos = { comSite: 'mComSite', semSite: 'mSemSite', cobranca: 'mCobranca', eu: 'euNome' };
+let MSG = Object.assign({ eu: '' }, PADRAO);
+try {
+  const salvo = JSON.parse(localStorage.getItem(CHAVE_MSG) || '{}');
+  // Texto novo publicado por aqui substitui o que ficou guardado no navegador —
+  // senão quem já abriu o painel uma vez nunca recebe as correções. O nome fica.
+  MSG = salvo.v === VERSAO ? Object.assign(MSG, salvo) : Object.assign(MSG, { eu: salvo.eu || '' });
+} catch {}
+MSG.v = VERSAO;
+for (const k in campos) document.getElementById(campos[k]).value = MSG[k] || '';
+for (const k in campos) {
+  document.getElementById(campos[k]).addEventListener('input', e => {
+    MSG[k] = e.target.value;
+    localStorage.setItem(CHAVE_MSG, JSON.stringify(MSG));
+  });
+}
+
+function preencher(texto, l) {
+  // Só elogia quem realmente é bem avaliado. Dizer "uma das mais bem avaliadas"
+  // pra quem tem nota 2,9 destrói a credibilidade na primeira frase.
+  const num = parseFloat(String(l.nota).replace(',', '.')) || 0;
+  const elogio = num >= 4.5 ? ' — uma das mais bem avaliadas de Campo Grande' : '';
+  return texto
+    .replaceAll('{ELOGIO}', elogio)
+    .replaceAll('{EU}', MSG.eu || 'Weslley')
+    .replaceAll('{NOME}', l.nome)
+    .replaceAll('{AVAL}', l.aval.toLocaleString('pt-BR'))
+    .replaceAll('{NOTA}', l.nota)
+    .replaceAll('{LINK}', l.site_pronto || '');
+}
+
+// ---- status compartilhado ----
+// Antes ficava só no navegador de quem ligava, então o Emerson não via nada.
+// Agora vai pro Supabase: quem abrir o painel vê o mesmo estado, de qualquer aparelho.
+// O localStorage continua como rede de segurança se a internet falhar.
+const API = 'https://qncxgwrjnlaeyonkncqu.supabase.co/rest/v1/crm_sites_status';
+const APIKEY = 'sb_publishable_WdT3gUyAV7VY0FkSW15-SA_o23OVIhC';
+const NICHO = document.title.split('·')[0].trim();
+const cab = { apikey: APIKEY, Authorization: 'Bearer ' + APIKEY, 'Content-Type': 'application/json' };
+
+async function puxarDaNuvem() {
+  try {
+    const r = await fetch(API + '?select=place_id,status,quem,atualizado&nicho=eq.' + encodeURIComponent(NICHO), { headers: cab });
+    if (!r.ok) throw new Error(r.status);
+    const linhas = await r.json();
+    for (const l of linhas) if (l.status) { STATUS[l.place_id] = l.status; QUEM[l.place_id] = l; }
+    salvar(); contar(); render();
+    marcaSync('sincronizado', linhas.length);
+  } catch (e) { marcaSync('offline — usando o que está salvo neste aparelho'); }
+}
+
+async function mandarPraNuvem(id, status, lead) {
+  try {
+    const r = await fetch(API + '?on_conflict=place_id', {
+      method: 'POST',
+      headers: { ...cab, Prefer: 'resolution=merge-duplicates' },
+      body: JSON.stringify({ place_id: id, nicho: NICHO, nome: lead?.nome || '', status, quem: MSG.eu || '', atualizado: new Date().toISOString() }),
+    });
+    if (!r.ok) throw new Error(r.status);
+    marcaSync('salvo pra equipe');
+  } catch (e) { marcaSync('não consegui salvar online — está guardado aqui'); }
+}
+
+function marcaSync(txt, n) {
+  const el = document.getElementById('sync');
+  if (el) el.textContent = n !== undefined ? txt + ' · ' + n + ' marcados pela equipe' : txt;
+}
+
+const QUEM = {};
+
+// cópia local (rede de segurança)
+const CHAVE = 'status-' + document.title;
+const ESTADOS = [['', '— status —'], ['contatado', 'contatado'], ['retorno', 'deu retorno'], ['fechou', 'FECHOU'], ['recusou', 'recusou'], ['semresposta', 'sem resposta']];
+let STATUS = {};
+try { STATUS = JSON.parse(localStorage.getItem(CHAVE) || '{}'); } catch {}
+const salvar = () => localStorage.setItem(CHAVE, JSON.stringify(STATUS));
+
+function contar() {
+  const v = Object.values(STATUS).filter(Boolean);
+  const n = e => v.filter(x => x === e).length;
+  document.getElementById('contador').innerHTML = v.length
+    ? '<b>' + v.length + '</b> marcados · <b>' + n('contatado') + '</b> contatados · <b>'
+      + n('retorno') + '</b> com retorno · <b>' + n('fechou') + '</b> fechados · <b>'
+      + n('semresposta') + '</b> sem resposta · <b>' + n('recusou') + '</b> recusaram'
+    : 'nenhum lead marcado ainda';
+}
+
+// escolhe sozinho o modelo certo: com link se o site já existe, senão o de apresentação
+function zap(l, qual) {
+  const modelo = qual === 'cobranca' ? MSG.cobranca : (l.site_pronto ? MSG.comSite : MSG.semSite);
+  return 'https://wa.me/55' + l.fone + '?text=' + encodeURIComponent(preencher(modelo, l));
+}
+
+function render() {
+  const q = busca.value.trim().toLowerCase();
+  const itens = LEADS.filter(l =>
+    (filtro === 'todos' || (filtro === 'marcados' ? !!STATUS[l.id] : l.situacao === filtro)) &&
+    (filtroTipo === 'todos' || l.tipo === filtroTipo) &&
+    (!q || (l.nome + ' ' + l.end).toLowerCase().includes(q))
+  );
+  if (!itens.length) { lista.innerHTML = '<p class="vazio">Nenhum lead com esse filtro.</p>'; return; }
+  lista.innerHTML = itens.map((l, i) => {
+    const cls = l.situacao === 'SEM SITE' ? 'op' : 'so';
+    const rotulo = l.situacao === 'SEM SITE' ? 'sem site' : 'só rede';
+    const st = STATUS[l.id] || '';
+    const acoes = [
+      l.site_pronto ? '<a class="site" href="' + l.site_pronto + '" target="_blank" rel="noopener">Ver site</a>' : '',
+      l.site_pronto ? '<button class="copiar-link" data-u="' + l.site_pronto + '" title="Copiar o link pra mandar">Copiar link</button>' : '',
+      l.fone ? '<a class="zap" href="' + zap(l) + '" target="_blank" rel="noopener">WhatsApp</a>' : '',
+      l.fone ? '<a class="cobrar" href="' + zap(l, 'cobranca') + '" target="_blank" rel="noopener" title="Mensagem de cobrança">Cobrar</a>' : '',
+      l.maps ? '<a href="' + l.maps + '" target="_blank" rel="noopener">Google</a>' : '',
+      l.site ? '<a href="' + l.site + '" target="_blank" rel="noopener">Insta</a>' : '',
+      '<select class="status" data-id="' + l.id + '" aria-label="Status do lead">' +
+        ESTADOS.map(([v, r]) => '<option value="' + v + '"' + (v === st ? ' selected' : '') + '>' + r + '</option>').join('') +
+      '</select>',
+    ].join('');
+    return '<article class="lead" data-s="' + st + '">' +
+      '<span class="rank">' + (i + 1) + '</span>' +
+      '<span class="nome">' + l.nome + '</span>' +
+      '<span class="meta"><span class="aval">' + l.aval.toLocaleString('pt-BR') + ' avaliações</span>' +
+      '<span>' + (l.nota || '—') + ' ★</span>' +
+      '<span class="pill ' + cls + '">' + rotulo + '</span>' +
+      '<span class="pill tp">' + l.tipo + '</span>' +
+      (l.site_pronto ? '<span class="pill pronto">site pronto</span>' : '') +
+      (st ? '<span class="pill st ' + st + '">' + (ESTADOS.find(e => e[0] === st) || ['', st])[1] + '</span>' : '') +
+      (l.fone_fmt ? '<span>' + l.fone_fmt + '</span>' : '') +
+      (l.end ? '<span>' + l.end + '</span>' : '') +
+      '</span>' +
+      '<span class="acoes">' + acoes + '</span>' +
+    '</article>';
+  }).join('');
+}
+
+// copiar o link do site pronto pra colar no WhatsApp
+lista.addEventListener('click', async e => {
+  const b = e.target.closest('.copiar-link');
+  if (!b) return;
+  try { await navigator.clipboard.writeText(b.dataset.u); b.textContent = 'copiado!'; setTimeout(() => b.textContent = 'Copiar link', 1600); }
+  catch { prompt('Copie o link:', b.dataset.u); }
+});
+
+// marcar status (delegado, sobrevive ao re-render)
+lista.addEventListener('change', e => {
+  const s = e.target.closest('select.status');
+  if (!s) return;
+  if (s.value) STATUS[s.dataset.id] = s.value; else delete STATUS[s.dataset.id];
+  salvar();
+  s.closest('.lead').dataset.s = s.value;
+  contar();
+  mandarPraNuvem(s.dataset.id, s.value, LEADS.find(l => l.id === s.dataset.id));
+});
+
+document.getElementById('copiar').addEventListener('click', async () => {
+  const marcados = LEADS.filter(l => STATUS[l.id]);
+  if (!marcados.length) return alert('Nenhum lead marcado ainda.');
+  const txt = 'Nutrição · Campo Grande\n\n' + marcados
+    .map(l => `[${STATUS[l.id].toUpperCase()}] ${l.nome} — ${l.fone_fmt || 'sem telefone'}`)
+    .join('\n');
+  try { await navigator.clipboard.writeText(txt); alert('Resumo copiado! É só colar no WhatsApp.'); }
+  catch { prompt('Copie o texto abaixo:', txt); }
+});
+
+busca.addEventListener('input', render);
+for (const k in campos) document.getElementById(campos[k]).addEventListener('input', render);
+for (const b of document.querySelectorAll('.filtro:not(.tipo)')) {
+  b.addEventListener('click', () => {
+    filtro = b.dataset.f;
+    for (const o of document.querySelectorAll('.filtro:not(.tipo)')) o.setAttribute('aria-pressed', String(o === b));
+    render();
+  });
+}
+for (const b of document.querySelectorAll('.filtro.tipo')) {
+  b.addEventListener('click', () => {
+    filtroTipo = b.dataset.t;
+    for (const o of document.querySelectorAll('.filtro.tipo')) o.setAttribute('aria-pressed', String(o === b));
+    render();
+  });
+}
+render();
+contar();
+puxarDaNuvem();
+// quem deixa a aba aberta o dia todo recebe o que o outro marcou
+setInterval(puxarDaNuvem, 60000);
+addEventListener('focus', puxarDaNuvem);
+</script>
+
+</html>
